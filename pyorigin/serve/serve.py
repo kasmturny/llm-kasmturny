@@ -3,7 +3,7 @@ from fastapi import FastAPI
 import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from origin.core.init_server import InitServer
+from pyorigin.core.init_server import InitServer
 
 
 # 一、#######################前期准备###########################

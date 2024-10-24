@@ -1,4 +1,4 @@
-from origin.serve.serve import fastapi_run
+from pyorigin.serve.serve import fastapi_run
 
 
 
