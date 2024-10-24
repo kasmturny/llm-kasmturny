@@ -15,14 +15,19 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+# 二、#######################数据结构##########################
+class Chat(BaseModel):
+    question: str
 
-# 二、#################路由测试################################
-@app.get("/llm_response/{question}")
-async def llm_res(question: str):
-    model = InitServer().get_model()
-    response=model.invoke(question).content
-    return {"llm_response": response}
+# 三、#################路由测试################################
 
+@app.post("/chat")
+async def process_statement(statement: Chat):
+    llm = InitServer().get_model()
+    response = llm.invoke(statement.question).content
+    return {"response":response}
+
+# 四、#################启动类################################
 class fastapi_run:
     def __init__(self):
         self.app = app
