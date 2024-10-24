@@ -33,7 +33,7 @@ class LocalEmbeddingConfig:
 class ConfigManager:
     def __init__(self):
         self.config = configparser.ConfigParser()
-        path = os.path.join(os.path.dirname(__file__), '../../config.ini')
+        path = os.path.join(os.path.dirname(__file__), '../config.ini')
         self.config.read(path)
 
     def get_model_config(self) -> ModelConfig:
