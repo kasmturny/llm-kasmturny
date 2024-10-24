@@ -7,4 +7,6 @@ pip install pymilvus redis
 
 pip install sentence_transformers
 
+pip install fastapi uvicorn
+
 
