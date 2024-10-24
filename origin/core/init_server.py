@@ -1,5 +1,5 @@
 from pymilvus import MilvusClient
-from config.config_manager import ConfigManager
+from origin.config.config_manager import ConfigManager
 import os
 from langchain_openai import ChatOpenAI
 import redis

@@ -7,6 +7,7 @@ class OpenAIBgeEmbeddings:
         model_name = "./libs/bge-large-zh-v1.5"
         model_kwargs = {'device': 'cpu'}
         encode_kwargs = {'normalize_embeddings': True}
+        model_name = os.path.join(os.path.dirname(__file__), model_name)
         self.model = HuggingFaceBgeEmbeddings(
             model_name=os.path.join(os.path.dirname(__file__), model_name),
             model_kwargs=model_kwargs,
