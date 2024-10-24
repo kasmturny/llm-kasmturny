@@ -25,11 +25,15 @@ class MilvusConfig:
         self.username: str = username
         self.password: str = password
 
+class LocalEmbeddingConfig:
+    def __init__(self, local_embedding_path):
+        self.local_embedding_path: str = local_embedding_path
+
 
 class ConfigManager:
     def __init__(self):
         self.config = configparser.ConfigParser()
-        path = os.path.join(os.path.dirname(__file__), './config.ini')
+        path = os.path.join(os.path.dirname(__file__), '../../config.ini')
         self.config.read(path)
 
     def get_model_config(self) -> ModelConfig:
@@ -57,8 +61,13 @@ class ConfigManager:
         password = self.config.get("MILVUS", "PASSWORD")
         return MilvusConfig(host, port, username, password)
 
+    def get_local_embedding_config(self) -> LocalEmbeddingConfig:
+        """本地embedding路径"""
+        local_embedding_path = self.config.get("LOCAL_EMBEDDING", "EMBEDDING_PATH")
+        return LocalEmbeddingConfig(local_embedding_path)
+
 
 
 if __name__ == "__main__":
-    test = ConfigManager().get_milvus_config()
-    print(test)
+    test = ConfigManager().get_local_embedding_config()
+    print(test.embedding_path)

@@ -3,7 +3,7 @@ from origin.config.config_manager import ConfigManager
 import os
 from langchain_openai import ChatOpenAI
 import redis
-
+from langchain_community.embeddings.huggingface import HuggingFaceBgeEmbeddings
 
 class InitServer:
     def __init__(self):
@@ -36,10 +36,18 @@ class InitServer:
         )
         return client
 
+    def get_local_embedding(self) -> HuggingFaceBgeEmbeddings:
+        model_name = self.config.get_local_embedding_config().local_embedding_path
+        model_kwargs = {'device': 'cpu'}
+        encode_kwargs = {'normalize_embeddings': True}
+        embedding_model= HuggingFaceBgeEmbeddings(
+            model_name=model_name,
+            model_kwargs=model_kwargs,
+            encode_kwargs=encode_kwargs,
+        )
+        return embedding_model
+
 if __name__ == "__main__":
-    model = InitServer().get_model()
-    milvus = InitServer().get_milvus()
-    redis = InitServer().get_redis()
-    redis.rpush("kiana",'是我老婆' )
-    print('断点')
+    test = InitServer().get_local_embedding()
+    print(test.embed_query("你好"))
 
