@@ -5,4 +5,6 @@ pip install langchain langchain-core langchain-community langchain-openai
 
 pip install pymilvus redis
 
+pip install sentence_transformers
+
 
