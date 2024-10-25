@@ -1,11 +1,13 @@
-from pymilvus import MilvusClient
 from pyorigin.config.config_manager import ConfigManager
+
+
+from pymilvus import MilvusClient
 import os
 from langchain_openai import ChatOpenAI
 import redis
 from langchain_community.embeddings.huggingface import HuggingFaceBgeEmbeddings
 
-class InitServer:
+class InitClass:
     def __init__(self):
         self.config = ConfigManager()
 
@@ -48,6 +50,6 @@ class InitServer:
         return embedding_model
 
 if __name__ == "__main__":
-    test = InitServer().get_local_embedding()
-    print(test.embed_query("你好"))
+    test = InitClass().get_model()
+    print(test.invoke("你好"))
 

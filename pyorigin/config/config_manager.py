@@ -70,4 +70,4 @@ class ConfigManager:
 
 if __name__ == "__main__":
     test = ConfigManager().get_local_embedding_config()
-    print(test.embedding_path)
+    print(test.local_embedding_path)
