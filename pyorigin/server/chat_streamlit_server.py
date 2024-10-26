@@ -5,7 +5,7 @@ import openai
 import traceback
 import streamlit as st
 from pyorigin.utils.print_util import print_red
-from pyorigin.core.base_agent import single_invoke
+from pyorigin.core.base_agent import BigModel
 
 st.set_page_config(page_title="LLM 纯聊天机器人")
 
@@ -130,7 +130,7 @@ class ChatServer:
                             st.session_state.messages.append(
                                 {"role": "assistant", "content": "好的，已为你成功切换人格，接下来你可以尽情聊天了。"})
                             return
-                    response = single_invoke(
+                    response = BigModel().str_output_invoke(
                         content={"input": user_message.strip(), "history": self.history},
                         template=st.session_state.type % (
                             datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))

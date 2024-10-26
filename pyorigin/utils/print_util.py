@@ -30,3 +30,6 @@ def print_yellow(*text, sep=" ", end="\n"):
 def print_blue(*text, sep=" ", end="\n"):
     '''打印蓝色字符'''
     print_with_color(Color.BLUE, *text, sep=sep, end=end)
+
+if __name__ == "__main__":
+    print_with_color(Color.RED, "hello world")

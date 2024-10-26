@@ -1,4 +1,4 @@
-from pyorigin.config.init_server import InitServer
+from pyorigin.config.init_class import InitClass
 
 from fastapi import FastAPI
 import uvicorn
@@ -24,7 +24,7 @@ class Chat(BaseModel):
 
 @app.post("/chat")
 async def process_statement(statement: Chat):
-    llm = InitServer().get_model()
+    llm = InitClass().get_model()
     response = llm.invoke(statement.question).content
     return {"response":response}
 
