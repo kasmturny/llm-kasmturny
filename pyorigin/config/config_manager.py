@@ -29,6 +29,12 @@ class LocalEmbeddingConfig:
     def __init__(self, local_embedding_path):
         self.local_embedding_path: str = local_embedding_path
 
+class Embedding:
+    def __init__(self, api_key,embedding_url, embedding_model_name):
+        self.api_key : str = api_key
+        self.embedding_url: str = embedding_url
+        self.embedding_model_name: str = embedding_model_name
+
 
 class ConfigManager:
     def __init__(self):
@@ -66,8 +72,19 @@ class ConfigManager:
         local_embedding_path = self.config.get("LOCAL_EMBEDDING", "EMBEDDING_PATH")
         return LocalEmbeddingConfig(local_embedding_path)
 
+    def get_embedding_config(self) -> Embedding:
+        """embedding配置"""
+        api_key = self.config.get("EMBEDDING", "API_KEY")
+        embedding_url = self.config.get("EMBEDDING", "EMBEDDING_URL")
+        embedding_model_name = self.config.get("EMBEDDING", "EMBEDDING_MODEL_NAME")
+        return Embedding(api_key, embedding_url, embedding_model_name)
+
 
 
 if __name__ == "__main__":
-    test = ConfigManager().get_local_embedding_config()
-    print(test.local_embedding_path)
+    # model = ConfigManager().get_model_config()
+    # redis = ConfigManager().get_redis_config()
+    # milvus = ConfigManager().get_milvus_config()
+    # local_embedding = ConfigManager().get_local_embedding_config()
+    embeding = ConfigManager().get_embedding_config()
+    print('断点')

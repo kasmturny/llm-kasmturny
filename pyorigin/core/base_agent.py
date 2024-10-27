@@ -1,6 +1,8 @@
 import hashlib
 import json
 import time
+
+import requests
 from pymilvus import DataType, FieldSchema, CollectionSchema
 from typing import List, Dict, Any, Union
 from retry import retry
@@ -13,7 +15,7 @@ class BigModel:
         self.model = InitClass().get_model()
 
     @retry(tries=3)
-    def str_output_invoke(self, content, template, examples="", output_parser=StrOutputParser(), history=""):
+    def str_output_invoke(self, content, template, examples="", output_parser=StrOutputParser(), history="") -> str:
         model = self.model
         prompt = PromptTemplate.from_template(
             str(template)
@@ -22,7 +24,7 @@ class BigModel:
         return output_text
 
     @retry(tries=3)
-    def json_output_invoke(self, content, template,output_parser=JsonOutputParser(), examples="", history=""):
+    def json_output_invoke(self, content, template,output_parser=JsonOutputParser(), examples="", history="") -> Any:
         model = self.model
         prompt = PromptTemplate.from_template(
             str(template)
@@ -34,8 +36,25 @@ class LocalEmbedding:
     def __init__(self):
         self.embedding = InitClass().get_local_embedding()
 
-    def get_embedding(self, text: str):
+    def get_embedding(self, text: str)-> List[float]:
         return self.embedding.embed_query(text)
+
+class Embedding:
+    def __init__(self):
+        self.embedding = InitClass().get_embedding()
+
+    def get_embedding(self, text: str) -> List[float]:
+        method="POST"
+        url=self.embedding.embedding_url
+        headers={'Authorization': f'Bearer {self.embedding.api_key}',
+                'User-Agent': 'Apifox/1.0.0 (https://apifox.com)',
+                'Content-Type': 'application/json'
+        }
+        data=json.dumps({"model": self.embedding.embedding_model_name,
+                        "input": text
+                        })
+        response = requests.request(method=method, url=url, headers=headers, data=data)
+        return response.json()['data'][0]["embedding"]
 
 class Redis:
     def __init__(self):
@@ -48,7 +67,7 @@ class Redis:
         redis.expire(key, 24 * 60 * 60 * 7)  # 过期时间7天
         redis.rpush(key, json.dumps(data, ensure_ascii=False))
 
-    def query_redis(self, group_id: str, start: int = 0, end: int = -1):
+    def query_redis(self, group_id: str, start: int = 0, end: int = -1) -> List[str]:
         redis = self.redis
         key = f"chat_server:{group_id}"
         messages = redis.lrange(key, start, end)
@@ -110,7 +129,7 @@ class Milvus:
             )
         print(res)
 
-    def query_milvus_data(self, query: str, collection_name: str, vector_size: int, output_fields: List[str] = None, limit:int=1):
+    def query_milvus_data(self, query: str, collection_name: str, vector_size: int, output_fields: List[str] = None, limit:int=1) -> Any:
         """查询数据"""
         vector = self.embedding.embed_query(query)
         res = self.milvus.search(
@@ -127,6 +146,8 @@ class Milvus:
 
 
 if __name__ == "__main__":
+    """Model测试"""
+    print(BigModel().str_output_invoke("你好","你是一个小女孩儿，请回答{content}"))
     """milvus测试"""
     # Milvus().delete_milvus_collection("kiana")
     # Milvus().create_milvus_collection("kiana")
@@ -152,6 +173,8 @@ if __name__ == "__main__":
     """redis测试"""
     # Redis().push_redis({'name':'kiana','chat':'我是琪亚娜'}, "114514")
     # Redis().push_redis({'name': 'kasmturny', 'chat': '我是琪亚娜小姐的狗'}, "114514")
-    print(Redis().query_redis(group_id="114514"))
-    """embedding测试"""
+    # print(Redis().query_redis(group_id="114514"))
+    """local_embedding测试"""
     # print(LocalEmbedding().get_embedding("kiana小姐最可爱"))
+    """embedding测试"""
+    # print(Embedding().get_embedding("kiana小姐最可爱"))
