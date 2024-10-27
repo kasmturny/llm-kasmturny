@@ -15,6 +15,10 @@ pip install retry
 ## 二、命令行
 python -m streamlit run D:\Exploitation\All\llm-kasmturny\pyorigin\server\chat_streamlit_server.py
 
+cd D:\Exploitation\All\llm-kasmturny\webapp\chat
+
+npm run serve
+
 
 
 
