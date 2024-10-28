@@ -1,8 +1,10 @@
 <template>
   <div id="app">
-    <!-- 使用Vue Router进行页面跳转 -->
-    <button @click="goToHome">Go to Home</button>
-    <button @click="goToChatPink">Go to ChatPink</button>
+    <!-- 按钮包裹容器 -->
+    <div class="button-container">
+      <button @click="goToHome">首页</button>
+      <button @click="goToChatPink">和我交流</button>
+    </div>
     <!-- 路由出口 -->
     <router-view/>
   </div>
@@ -12,11 +14,9 @@
 export default {
   name: 'App',
   methods: {
-    // 定义跳转到Home页面的方法
     goToHome() {
       this.$router.push('/home');
     },
-    // 定义跳转到ChatPink页面的方法
     goToChatPink() {
       this.$router.push('/chatpink');
     }
@@ -31,17 +31,23 @@ export default {
       -moz-osx-font-smoothing: grayscale;
       color: #2c3e50;
       margin-top: 0; /* 移除顶部的边距 */
-      text-align: left; /* 将文本对齐方式改为左对齐 */
+      text-align: center; /* 整个容器的文本居中对齐 */
     }
+
+    .button-container {
+      text-align: left; /* 按钮容器内的文本左对齐 */
+      margin-bottom: 20px; /* 按钮容器底部添加一些空间 */
+      border: 2px solid #383333; /* 添加一个蓝色边框 */
+      border-radius: 8px; /* 添加圆角 */
+      padding: 1px; /* 为容器添加内边距 */
+    }
+
 
     button {
       display: inline-block; /* 确保按钮在同一行显示 */
-      margin: 10px; /* 按钮的外边距 */
+      margin: 2px; /* 按钮的外边距 */
       padding: 10px 20px; /* 按钮的内边距 */
-      font-size: 16px;
+      font-size: 18px;
       cursor: pointer;
     }
 </style>
-
-
-
