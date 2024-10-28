@@ -18,7 +18,3 @@ python -m streamlit run D:\Exploitation\All\llm-kasmturny\pyorigin\server\chat_s
 cd D:\Exploitation\All\llm-kasmturny\webapp\cli1
 
 npm run serve
-
-
-
-
