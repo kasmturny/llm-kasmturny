@@ -97,7 +97,7 @@ export default {
   padding: 10px;
   background-color: #f5f5f5;
   overflow-y: auto;
-  background-image: url('https://sfile.chatglm.cn/pic_cache/66db376e44b2c1ab6f70b921/1fjb6j.png'); /* 添加这行代码 */
+  background-image: url('https://sfile.chatglm.cn/testpath/gen-1730102274182603239_0.png?image_process=format,webp'); /* 添加这行代码 */
   background-size: cover; /* 背景图片覆盖整个容器 */
   background-position: center; /* 背景图片居中显示 */
   background-repeat: no-repeat; /* 背景图片不重复 */
@@ -127,7 +127,7 @@ export default {
 
 .setcontainer {
   width: 100%;
-  background-image: url('https://sfile.chatglm.cn/pic_cache/66db376e44b2c1ab6f70b921/1fjb6j.png'); /* 添加这行代码 */
+  background-image: url('https://sfile.chatglm.cn/testpath/gen-1730102274182603239_0.png?image_process=format,webp'); /* 添加这行代码 */
   background-size: cover; /* 背景图片覆盖整个容器 */
   background-position: center; /* 背景图片居中显示 */
   background-repeat: no-repeat; /* 背景图片不重复 */
