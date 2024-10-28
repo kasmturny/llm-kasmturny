@@ -3,7 +3,7 @@ import json
 import time
 
 import requests
-from pymilvus import DataType, FieldSchema, CollectionSchema
+from pymilvus import DataType, FieldSchema, CollectionSchema, Collection
 from typing import List, Dict, Any, Union
 from retry import retry
 from pyorigin.config.init_class import InitClass
@@ -147,17 +147,17 @@ class Milvus:
 
 if __name__ == "__main__":
     """Model测试"""
-    print(BigModel().str_output_invoke("你好","你是一个小女孩儿，请回答{content}"))
+    # print(BigModel().str_output_invoke("你好","你是一个小兔子，请回答{content}"))
     """milvus测试"""
-    # Milvus().delete_milvus_collection("kiana")
-    # Milvus().create_milvus_collection("kiana")
+    # Milvus().delete_milvus_collection("rabbit")
+    # Milvus().create_milvus_collection("rabbit")
     # templates = [
-    #     {"input": "kiana小姐最可爱", "output": "kiana小姐最可爱"},
-    #     {"input": "kiana小姐最漂亮", "output": "kiana小姐最漂亮"},
-    #     {"input": "kiana小姐最美丽", "output": "kiana小姐最美丽"},
-    #     {"input": "kiana小姐最温柔", "output": "kiana小姐最温柔"},
-    #     {"input": "kiana小姐最善良", "output": "kiana小姐最善良"},
-    #     {"input": "kiana小姐最聪明", "output": "kiana小姐最聪明"},
+    #     {"input": "兔子最可爱", "output": "兔子最可爱"},
+    #     {"input": "兔子最漂亮", "output": "兔子最漂亮"},
+    #     {"input": "兔子最美丽", "output": "兔子最美丽"},
+    #     {"input": "兔子最温柔", "output": "兔子最温柔"},
+    #     {"input": "兔子最善良", "output": "兔子最善良"},
+    #     {"input": "兔子最聪明", "output": "兔子最聪明"},
     #     ]
     # datas = []
     # for template in templates:
@@ -165,16 +165,16 @@ if __name__ == "__main__":
     #     template['embeddings'] = InitClass().get_local_embedding().embed_query(template['input'])
     #     print(template['input'])
     #     datas.append(template)
-    # Milvus().insert_milvus_data("kiana", datas)
-    # print(Milvus().query_milvus_data("kiana小姐脑袋瓜最好",
-    #                                  "kiana",
+    # Milvus().insert_milvus_data("rabbit", datas)
+    # print(Milvus().query_milvus_data("兔子脑袋瓜最好",
+    #                                  "rabbit",
     #                                  1024,
     #                                  output_fields=["input", "output"]))
     """redis测试"""
-    # Redis().push_redis({'name':'kiana','chat':'我是琪亚娜'}, "114514")
-    # Redis().push_redis({'name': 'kasmturny', 'chat': '我是琪亚娜小姐的狗'}, "114514")
-    # print(Redis().query_redis(group_id="114514"))
+    # Redis().push_redis({'name':'兔子','chat':'我是兔子'}, "114514")
+    # Redis().push_redis({'name': 'kasmturny', 'chat': '我喜欢麻辣兔头'}, "114514")
+    print(Redis().query_redis(group_id="114514"))
     """local_embedding测试"""
-    # print(LocalEmbedding().get_embedding("kiana小姐最可爱"))
+    # print(LocalEmbedding().get_embedding("兔子最可爱"))
     """embedding测试"""
-    # print(Embedding().get_embedding("kiana小姐最可爱"))
+    # print(Embedding().get_embedding("兔子最可爱"))

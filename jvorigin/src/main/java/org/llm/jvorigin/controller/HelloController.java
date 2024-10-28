@@ -7,7 +7,7 @@ public class HelloController {
     @RequestMapping("/")
     @ResponseBody
     public String hello(){
-        return "I am kiana_kiana_kiana";
+        return "我是兔子兔子兔子";
     }
 }
 
