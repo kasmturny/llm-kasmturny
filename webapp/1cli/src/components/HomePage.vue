@@ -49,9 +49,13 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h3 {
-  margin: 40px 0 0;
+  margin: 10px 0 0;
 }
-
+.hello{
+  margin: 1px 0; /* 添加一些外边距 */
+  padding: 10px; /* 添加内边距 */
+  border: 2px solid #ccc; /* 可选：添加边框 */
+}
 .container {
   margin: 10px 0; /* 添加一些外边距 */
   padding: 10px; /* 添加内边距 */

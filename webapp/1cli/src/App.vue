@@ -2,7 +2,7 @@
   <div id="app">
     <!-- 按钮包裹容器 -->
     <div class="button-container">
-      <button @click="goToHome">首页</button>
+      <button @click="goToHomePage">首页</button>
       <button @click="goToChatBot">和我交流</button>
     </div>
     <!-- 路由出口 -->
@@ -14,8 +14,8 @@
 export default {
   name: 'App',
   methods: {
-    goToHome() {
-      this.$router.push('/home');
+    goToHomePage() {
+      this.$router.push('/homepage');
     },
     goToChatBot() {
       this.$router.push('/chatbot');
