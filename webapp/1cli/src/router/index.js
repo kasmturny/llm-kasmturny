@@ -1,12 +1,12 @@
 // router/index.js
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from '../components/Home.vue';
+import HomePage from '../components/HomePage.vue';
 import ChatBot from '../components/ChatBot.vue';
 
 const routes = [
     {
       path: '/',
-      redirect: '/home'
+      redirect: '/homepage'
     },
     {
     path: '/chatbot',
@@ -14,9 +14,9 @@ const routes = [
     component: ChatBot
     },
     {
-    path: '/home',
-    name: 'home',
-    component: Home
+    path: '/homepage',
+    name: 'homepage',
+    component: HomePage
     }
 ];
 

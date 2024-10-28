@@ -97,10 +97,6 @@ export default {
   padding: 10px;
   background-color: #f5f5f5;
   overflow-y: auto;
-  background-image: url('https://sfile.chatglm.cn/testpath/gen-1730102274182603239_0.png?image_process=format,webp'); /* 添加这行代码 */
-  background-size: cover; /* 背景图片覆盖整个容器 */
-  background-position: center; /* 背景图片居中显示 */
-  background-repeat: no-repeat; /* 背景图片不重复 */
 }
 
 .message {
@@ -127,10 +123,6 @@ export default {
 
 .setcontainer {
   width: 100%;
-  background-image: url('https://sfile.chatglm.cn/testpath/gen-1730102274182603239_0.png?image_process=format,webp'); /* 添加这行代码 */
-  background-size: cover; /* 背景图片覆盖整个容器 */
-  background-position: center; /* 背景图片居中显示 */
-  background-repeat: no-repeat; /* 背景图片不重复 */
 }
 
 input[type="text"] {
