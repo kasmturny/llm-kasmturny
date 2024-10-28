@@ -29,15 +29,15 @@ export default {
       font-family: Avenir, Helvetica, Arial, sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      text-align: center;
       color: #2c3e50;
-      margin-top: 60px;
+      margin-top: 0; /* 移除顶部的边距 */
+      text-align: left; /* 将文本对齐方式改为左对齐 */
     }
 
     button {
       display: inline-block; /* 确保按钮在同一行显示 */
-      margin: 10px;
-      padding: 10px 20px;
+      margin: 10px; /* 按钮的外边距 */
+      padding: 10px 20px; /* 按钮的内边距 */
       font-size: 16px;
       cursor: pointer;
     }
