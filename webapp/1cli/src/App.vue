@@ -3,7 +3,7 @@
     <!-- 按钮包裹容器 -->
     <div class="button-container">
       <button @click="goToHome">首页</button>
-      <button @click="goToChatPink">和我交流</button>
+      <button @click="goToChatBot">和我交流</button>
     </div>
     <!-- 路由出口 -->
     <router-view/>
@@ -17,8 +17,8 @@ export default {
     goToHome() {
       this.$router.push('/home');
     },
-    goToChatPink() {
-      this.$router.push('/chatpink');
+    goToChatBot() {
+      this.$router.push('/chatbot');
     }
   }
 }

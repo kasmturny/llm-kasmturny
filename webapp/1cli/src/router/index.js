@@ -1,7 +1,7 @@
 // router/index.js
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../components/Home.vue';
-import ChatPink from '../components/ChatPink.vue';
+import ChatBot from '../components/ChatBot.vue';
 
 const routes = [
     {
@@ -9,9 +9,9 @@ const routes = [
       redirect: '/home'
     },
     {
-    path: '/chatpink',
-    name: 'chatpink',
-    component: ChatPink
+    path: '/chatbot',
+    name: 'chatbot',
+    component: ChatBot
     },
     {
     path: '/home',
