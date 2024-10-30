@@ -175,7 +175,7 @@ class Kafka:
         for message in consumer:
             message_dict: dict = eval(re.sub(r"\s+", " ", message.value.decode('utf-8')))
             func(message_dict, *args, **kwargs)
-            print(f"（Group_Id：{group_id}）从（Topic:{topic}）收到消息: {message.value},已处理")
+            print(f"（Group_Id：{group_id}）从（Topic:{topic}）收到消息: {message.value},已处理,已提交")
 
 
 
