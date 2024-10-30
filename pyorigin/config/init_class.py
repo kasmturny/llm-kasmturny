@@ -6,7 +6,8 @@ from langchain_openai import ChatOpenAI
 import redis
 from langchain_community.embeddings.huggingface import HuggingFaceBgeEmbeddings
 
-from pyorigin.config.config_manager import Embedding
+from pyorigin.config.config_manager import EmbeddingConfig,KafkaConfig
+
 
 
 class InitClass:
@@ -51,8 +52,13 @@ class InitClass:
         )
         return embedding_model
 
-    def get_embedding(self) -> Embedding:
+    def get_embedding(self) -> EmbeddingConfig:
         return self.config.get_embedding_config()
+
+    def get_kafka(self) -> KafkaConfig:
+        return self.config.get_kafka_config()
+
+
 
 
 
@@ -61,7 +67,8 @@ if __name__ == "__main__":
     # redis = InitClass().get_redis()
     # milvus = InitClass().get_milvus()
     # local_embedding = InitClass().get_local_embedding()
-    embeding = InitClass().get_embedding()
+    # embeding = InitClass().get_embedding()
+    kafka = InitClass().get_kafka()
     print('断点')
 
 

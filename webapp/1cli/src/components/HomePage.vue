@@ -1,5 +1,5 @@
 <template>
-  <div class="hello">
+  <div class="big_container">
 
     <h3>VUE学习</h3>
     <div class="container">
@@ -48,10 +48,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 10px 0 0;
-}
-.hello{
+.big_container{
   margin: 1px 0; /* 添加一些外边距 */
   padding: 10px; /* 添加内边距 */
   border: 2px solid #ccc; /* 可选：添加边框 */

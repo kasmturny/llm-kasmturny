@@ -9,6 +9,8 @@ from retry import retry
 from pyorigin.config.init_class import InitClass
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser,JsonOutputParser
+from kafka.errors import KafkaError
+from kafka import KafkaProducer, KafkaConsumer
 
 class BigModel:
     def __init__(self):
@@ -144,6 +146,35 @@ class Milvus:
         )
         return res
 
+class Kafka:
+    def __init__(self):
+        self.kafka = InitClass().get_kafka()
+        self.bootstrap_servers = [self.kafka.host + ":" + str(self.kafka.port)]
+
+    def produce(self, topic, message):
+        producer = KafkaProducer(bootstrap_servers=self.bootstrap_servers,
+                                 value_serializer=lambda x: json.dumps(x).encode('utf-8'),
+                                 api_version=(0, 10, 1))
+        try:
+            producer.send(topic, value=message)
+            producer.flush()
+            print(f"成功发送数据到{topic}")
+        except KafkaError as e:
+            print(f"发送数据失败: {e}")
+        finally:
+            producer.close()
+
+    def consume(self, topic, group_id):
+        consumer = KafkaConsumer(bootstrap_servers=self.bootstrap_servers,
+                                 group_id=group_id,
+                                 auto_offset_reset='earliest',
+                                 enable_auto_commit=False,
+                                 api_version=(0, 10, 2))
+        consumer.subscribe([topic])
+        for message in consumer:
+            print(f"Group_Id：{group_id},收到消息: {message.value}")
+
+
 
 if __name__ == "__main__":
     """Model测试"""
@@ -173,8 +204,11 @@ if __name__ == "__main__":
     """redis测试"""
     # Redis().push_redis({'name':'兔子','chat':'我是兔子'}, "114514")
     # Redis().push_redis({'name': 'kasmturny', 'chat': '我喜欢麻辣兔头'}, "114514")
-    print(Redis().query_redis(group_id="114514"))
+    # print(Redis().query_redis(group_id="114514"))
     """local_embedding测试"""
     # print(LocalEmbedding().get_embedding("兔子最可爱"))
     """embedding测试"""
     # print(Embedding().get_embedding("兔子最可爱"))
+    """kafka测试"""
+    Kafka().consume("test", "kasmturny")
+    print("断点")
