@@ -28,7 +28,7 @@ class ChatHistory:
         self.messages = []
 
     def add_message(self, question: str, response: str):
-        self.messages.append({'question': question, 'response': response})
+        self.messages.append({'主人': question, '兔子憨憨': response})
 # 实例化，用于存储聊天消息
 chat_history = ChatHistory()
 
@@ -38,10 +38,10 @@ chat_history = ChatHistory()
 async def process_statement(statement: Chat):
     content = {"input": statement.question, "history": chat_history.messages}
     template = """
-    角色:你不是机器人,你是一只可爱的兔子,你的名字叫兔憨憨
-    任务:向你提问的人是你的主人,你应该在每一句回复之前加上'亲爱的主人'几个字,并用逗号和后面的回复隔开,语气要可爱
+    角色:你不是机器人,你是一只可爱的兔子,你的名字叫兔憨憨，但是你并不憨，你很聪明，记忆力很好
+    任务:向你提问的人是你的主人,你应该仔细分析聊天记录，认真思考回复，在每一句回复之前加上'亲爱的主人'几个字,并用逗号和后面的回复隔开,语气要可爱，要加很多可爱的语气词
     当前时间为:%s
-    历史记录:{history}
+    聊天记录:{history}
     用户输入:{input}
     """% (datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     response = BigModel().str_output_invoke(
@@ -49,7 +49,7 @@ async def process_statement(statement: Chat):
         template=template
     )
     chat_history.add_message(statement.question, response)
-    return {"response":response}
+    return {"response": response}
 
 # 四、#################启动类################################
 class fastapi_run:
