@@ -15,11 +15,33 @@ export default {
   name: 'App',
   methods: {
     goToHomePage() {
-      this.$router.push('/homepage');
+      if (this.$route.path !== '/homepage'){
+        this.$router.push('/homepage')
+      }
     },
     goToChatBot() {
-      this.$router.push('/chatbot');
+      // 检查当前路由是否已经是 /chatbot
+      if (this.$route.path !== '/chatbot') {
+        this.$router.push('/chatbot').then(() => {
+          // 路由跳转成功后发送 POST 请求
+          fetch('http://localhost:8000/newchat', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+              // eslint-disable-next-line no-unused-vars
+          .then(response => {
+            // 请求成功，处理响应
+          })
+          .catch(error => {
+            console.error('Error sending request:', error);
+            // 请求失败，处理错误
+          });
+        });
+      }
     }
+
   }
 }
 </script>

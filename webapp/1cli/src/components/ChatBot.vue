@@ -7,6 +7,7 @@
     </div>
     <div class="setcontainer">
       <input type="text" v-model="newMessage" @keyup.enter="sendMessage" placeholder="输入消息..." />
+      <button @click="newaChat">新对话</button>
       <button @click="sendMessage">发送</button>
     </div>
   </div>
@@ -22,6 +23,34 @@ export default {
     };
   },
   methods: {
+    newaChat() {
+            // 使用 fetch 发送 POST 请求
+      fetch('http://localhost:8000/newchat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+          // 如果需要，可以在这里添加其他 headers
+        },
+        // 如果需要发送数据，可以在这里添加 body
+        // body: JSON.stringify({ /* 数据 */ })
+      })
+          // eslint-disable-next-line no-unused-vars
+      .then(response => {
+        // 请求成功，但是我们不关心结果
+      })
+      .catch(error => {
+        console.error('Error sending request:', error);
+        // 请求失败，可以在这里处理错误
+      })
+      .finally(() => {
+        // 无论成功还是失败，都进行路由跳转
+        this.messages = [];
+        this.newMessage = '';
+        this.newRespose = '';
+      });
+
+
+    },
     sendMessage() {
       if (this.newMessage.trim() === '') {
         return;
@@ -76,6 +105,26 @@ export default {
 
       }
     },
+    fetchInitialData() {
+      fetch('http://localhost:8000/newchat', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+              // eslint-disable-next-line no-unused-vars
+          .then(response => {
+            // 请求成功，处理响应
+          })
+          .catch(error => {
+            console.error('Error sending request:', error);
+            // 请求失败，处理错误
+          });
+    }
+  },
+  mounted() {
+    // 组件挂载后立即获取初始数据
+    this.fetchInitialData();
   }
 };
 </script>
@@ -126,7 +175,7 @@ export default {
 }
 
 input[type="text"] {
-  width: calc(100% - 150px);
+  width: calc(95% - 150px);
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;

@@ -51,6 +51,13 @@ async def process_statement(statement: Chat):
     chat_history.add_message(statement.question, response)
     return {"response": response}
 
+
+@app.post("/newchat")
+async def new_chat():
+    chat_history.messages.clear()
+    return {"response": "聊天记录已清空"}
+
+
 # 四、#################启动类################################
 class fastapi_run:
     def __init__(self):
