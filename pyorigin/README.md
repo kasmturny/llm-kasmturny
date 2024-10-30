@@ -4,7 +4,7 @@
 ```
 pip install langchain langchain-core langchain-community langchain-openai langgraph
 
-pip install pymilvus redis
+pip install pymilvus redis kafka-python
 
 pip install sentence_transformers
 

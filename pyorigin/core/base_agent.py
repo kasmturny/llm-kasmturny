@@ -172,7 +172,7 @@ class Kafka:
                                  api_version=(0, 10, 2))
         consumer.subscribe([topic])
         for message in consumer:
-            print(f"Group_Id：{group_id},收到消息: {message.value}")
+            print(f"（Group_Id：{group_id}）从（Topic:{topic}）收到消息: {message.value}")
 
 
 
@@ -210,5 +210,18 @@ if __name__ == "__main__":
     """embedding测试"""
     # print(Embedding().get_embedding("兔子最可爱"))
     """kafka测试"""
+    # massages = [
+    #     {"key": "key1", "value": "value1"},
+    #     {"key": "key2", "value": "value2"},
+    #     {"key": "key3", "value": "value3"},
+    #     {"key": "key4", "value": "value4"},
+    #     {"key": "key5", "value": "value5"},
+    #     {"key": "key6", "value": "value6"},
+    #     {"key": "key7", "value": "value7"},
+    #     {"key": "key8", "value": "value8"},
+    #     {"key": "key9", "value": "value9"}
+    # ]
+    # for message in massages:
+    #     Kafka().produce("test", message)
     Kafka().consume("test", "kasmturny")
     print("断点")
