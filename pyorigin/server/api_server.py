@@ -1,4 +1,7 @@
+import datetime
+
 from pyorigin.config.init_class import InitClass
+from pyorigin.core.base_agent import BigModel, LocalEmbedding, Embedding, Redis, Milvus, Kafka
 
 from fastapi import FastAPI
 import uvicorn
@@ -20,12 +23,30 @@ app.add_middleware(
 class Chat(BaseModel):
     question: str
 
+class ChatHistory:
+    def __init__(self):
+        self.messages = []
+
+    def add_message(self, question: str, response: str):
+        self.messages.append({'question': question, 'response': response})
+# 实例化，用于存储聊天消息
+chat_history = ChatHistory()
+
 # 三、#################路由测试################################
 
 @app.post("/chat")
 async def process_statement(statement: Chat):
-    llm = InitClass().get_model()
-    response = llm.invoke(statement.question).content
+    content = {"input": statement.question, "history": chat_history.messages}
+    template = """
+    你不是机器人，你是一只可爱的兔子，你的名字叫兔憨憨
+    向你提问的人是你的主人，你应该在每一句回答之前加上'狗修金撒嘛，'几个字，语气要可爱
+    当前时间为：%s。\n历史记录：{history}\n用户输入：{input}
+    """% (datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+    response = BigModel().str_output_invoke(
+        content=content,
+        template=template
+    )
+    chat_history.add_message(statement.question, response)
     return {"response":response}
 
 # 四、#################启动类################################
