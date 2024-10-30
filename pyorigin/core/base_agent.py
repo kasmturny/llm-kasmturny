@@ -1,10 +1,11 @@
 import hashlib
 import json
+import re
 import time
 
 import requests
 from pymilvus import DataType, FieldSchema, CollectionSchema, Collection
-from typing import List, Dict, Any, Union
+from typing import List, Dict, Any, Union, Callable
 from retry import retry
 from pyorigin.config.init_class import InitClass
 from langchain_core.prompts import PromptTemplate
@@ -158,13 +159,13 @@ class Kafka:
         try:
             producer.send(topic, value=message)
             producer.flush()
-            print(f"成功发送数据到{topic}")
+            print(f"成功发送数据{message}到{topic}")
         except KafkaError as e:
             print(f"发送数据失败: {e}")
         finally:
             producer.close()
 
-    def consume(self, topic, group_id):
+    def consume(self, topic, group_id, func: Callable, *args, **kwargs):
         consumer = KafkaConsumer(bootstrap_servers=self.bootstrap_servers,
                                  group_id=group_id,
                                  auto_offset_reset='earliest',
@@ -172,7 +173,9 @@ class Kafka:
                                  api_version=(0, 10, 2))
         consumer.subscribe([topic])
         for message in consumer:
-            print(f"（Group_Id：{group_id}）从（Topic:{topic}）收到消息: {message.value}")
+            message_dict: dict = eval(re.sub(r"\s+", " ", message.value.decode('utf-8')))
+            func(message_dict, *args, **kwargs)
+            print(f"（Group_Id：{group_id}）从（Topic:{topic}）收到消息: {message.value},已处理")
 
 
 
@@ -211,17 +214,21 @@ if __name__ == "__main__":
     # print(Embedding().get_embedding("兔子最可爱"))
     """kafka测试"""
     # massages = [
-    #     {"key": "key1", "value": "value1"},
-    #     {"key": "key2", "value": "value2"},
-    #     {"key": "key3", "value": "value3"},
-    #     {"key": "key4", "value": "value4"},
-    #     {"key": "key5", "value": "value5"},
-    #     {"key": "key6", "value": "value6"},
-    #     {"key": "key7", "value": "value7"},
-    #     {"key": "key8", "value": "value8"},
-    #     {"key": "key9", "value": "value9"}
+    #     {"key": "key0", "value": 0},
+    #     {"key": "key1", "value": 1},
+    #     {"key": "key2", "value": 2},
+    #     {"key": "key3", "value": 3},
+    #     {"key": "key4", "value": 4},
+    #     {"key": "key5", "value": 5},
+    #     {"key": "key6", "value": 6},
+    #     {"key": "key7", "value": 7},
+    #     {"key": "key8", "value": 8},
+    #     {"key": "key9", "value": 9}
+    #
     # ]
     # for message in massages:
     #     Kafka().produce("test", message)
-    Kafka().consume("test", "kasmturny")
+    # def print_add_hundred(message, hun):
+    #     print(message['value']+hun)
+    # Kafka().consume("test", "kasmturny", print_add_hundred ,100)
     print("断点")
