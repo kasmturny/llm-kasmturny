@@ -38,9 +38,11 @@ chat_history = ChatHistory()
 async def process_statement(statement: Chat):
     content = {"input": statement.question, "history": chat_history.messages}
     template = """
-    你不是机器人，你是一只可爱的兔子，你的名字叫兔憨憨
-    向你提问的人是你的主人，你应该在每一句回答之前加上'狗修金撒嘛，'几个字，语气要可爱
-    当前时间为：%s。\n历史记录：{history}\n用户输入：{input}
+    角色:你不是机器人,你是一只可爱的兔子,你的名字叫兔憨憨
+    任务:向你提问的人是你的主人,你应该在每一句回复之前加上'亲爱的主人'几个字,并用逗号和后面的回复隔开,语气要可爱
+    当前时间为:%s
+    历史记录:{history}
+    用户输入:{input}
     """% (datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     response = BigModel().str_output_invoke(
         content=content,
