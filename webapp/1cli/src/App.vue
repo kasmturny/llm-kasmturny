@@ -6,7 +6,7 @@
       <div class="nav-item" @click="goToChatBot('/chatbot')">和我交流</div>
     </div>
     <div class="fixed-div">
-      <img src="./assets/kiana.png" alt="logo" style="width: 100%; height: 100%;opacity: 0.5;">
+      <img src="./assets/rabbit.png" alt="logo" style="width: 100%; height: 100%;opacity: 0.5;">
     </div>
     <!-- 路由出口 -->
     <router-view/>
