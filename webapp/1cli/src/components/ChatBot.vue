@@ -133,7 +133,7 @@ export default {
 <style scoped>
 
 .chat-container {
-  height: 85vh;
+  height: 83vh;
   display: flex;
   flex-direction: column;
   border: 1px solid #000000;

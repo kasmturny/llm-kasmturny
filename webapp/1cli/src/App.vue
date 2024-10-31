@@ -53,7 +53,7 @@ export default {
     .top-nav {
       display: flex;
       justify-content: space-around;
-      background-color: #1f1f1f;
+      background-color: #383535;
       color: white;
       width: 100%; /* 设置宽度为100% */
       box-sizing: border-box; /* 包含padding和border在内的宽度 */
