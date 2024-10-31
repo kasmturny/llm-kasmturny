@@ -52,10 +52,13 @@ export default {
   margin: 1px 0; /* 添加一些外边距 */
   padding: 10px; /* 添加内边距 */
   border: 2px solid #ccc; /* 可选：添加边框 */
+  border-radius: 10px;
+  overflow-y: auto;
 }
 .container {
-  margin: 10px 0; /* 添加一些外边距 */
+  margin: 5px 0; /* 添加一些外边距 */
   padding: 10px; /* 添加内边距 */
   border: 2px solid #ccc; /* 可选：添加边框 */
+  border-radius: 10px;
 }
 </style>

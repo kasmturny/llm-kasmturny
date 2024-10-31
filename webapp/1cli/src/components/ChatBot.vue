@@ -141,61 +141,62 @@ export default {
   overflow: hidden;
 }
 
-.chat-messages {
-  height: 100%;
-  padding: 10px;
-  background-color: #f5f5f5;
-  overflow-y: auto;
-}
+      .chat-messages {
+        height: 100%;
+        padding: 10px;
+        background-color: #f5f5f5;
+        overflow-y: auto;
+      }
 
-.message {
-  margin: 5px 0;
-  padding: 5px;
-  border-radius: 5px;
-  max-width: 100%;
-  word-wrap: break-word;
-}
+          .message {
+            margin: 5px 0;
+            padding: 5px;
+            border-radius: 5px;
+            max-width: 100%;
+            word-wrap: break-word;
+          }
 
-.message strong {
-  font-weight: bold;
-}
+          .message strong {
+            font-weight: bold;
+          }
 
-.message:nth-child(even) {
-  background-color: #e9e9e9;
-  align-self: flex-start;
-}
+          .message:nth-child(even) {
+            background-color: #e9e9e9;
+            align-self: flex-start;
+          }
 
-.message:nth-child(odd) {
-  background-color: #d4e7fa;
-  align-self: flex-end;
-}
+          .message:nth-child(odd) {
+            background-color: #d4e7fa;
+            align-self: flex-end;
+          }
 
 .setcontainer {
   width: 100%;
+  display: flex; /* 启用flexbox布局 */
+  align-items: center; /* 垂直居中 */
 }
 
-input[type="text"] {
-  width: calc(95% - 150px);
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin: 10px 0px 10px 10px; /* 上 右 下 左 */
-  float: left;
-}
+      input[type="text"] {
+        width: calc(95% - 150px); /* 你可以根据需要调整这个宽度 */
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin: 10px; /* 统一设置所有边的外边距 */
+        flex-grow: 1; /* 让输入框占据剩余空间 */
+      }
 
-button {
-  width: 80px;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  background-color: #0084ff;
-  color: white;
-  cursor: pointer;
-  float: right;
-  margin: 10px 10px 10px 0px; /* 上 右 下 左 */
-}
+      button {
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: #0084ff;
+        color: white;
+        cursor: pointer;
+        margin: 10px; /* 统一设置所有边的外边距 */
+      }
 
-button:hover {
-  background-color: #006ae8;
-}
+      button:hover {
+        background-color: #006ae8;
+      }
+
 </style>

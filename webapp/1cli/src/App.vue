@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <!-- 按钮包裹容器 -->
-    <div class="button-container">
-      <button @click="goToHomePage">首页</button>
-      <button @click="goToChatBot">和我交流</button>
+    <!-- 顶部菜单 -->
+    <div class="top-nav">
+      <div class="nav-item" @click="goToHomePage('/homepage')">首页</div>
+      <div class="nav-item" @click="goToChatBot('/chatbot')">和我交流</div>
     </div>
     <!-- 路由出口 -->
     <router-view/>
@@ -20,10 +20,8 @@ export default {
       }
     },
     goToChatBot() {
-      // 检查当前路由是否已经是 /chatbot
       if (this.$route.path !== '/chatbot') {
         this.$router.push('/chatbot')
-        // 路由跳转成功后发送 POST 请求
       }
     }
   }
@@ -36,23 +34,28 @@ export default {
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       color: #2c3e50;
-      margin-top: 0; /* 移除顶部的边距 */
+      margin-top: 0px; /* 移除顶部的边距 */
     }
 
-    .button-container {
-      text-align: left; /* 按钮容器内的文本左对齐 */
-      margin-bottom: 20px; /* 按钮容器底部添加一些空间 */
-      border: 2px solid #383333; /* 添加一个蓝色边框 */
-      border-radius: 8px; /* 添加圆角 */
-      padding: 1px; /* 为容器添加内边距 */
+    .top-nav {
+      display: flex;
+      justify-content: space-around;
+      background-color: #1f1f1f;
+      color: white;
+      width: 100%; /* 设置宽度为100% */
+      box-sizing: border-box; /* 包含padding和border在内的宽度 */
+      border-radius: 10px;
+      margin-bottom: 20px; /* 在导航栏和页面内容之间添加间隔 */
+      overflow-y: auto;
     }
 
-
-    button {
-      display: inline-block; /* 确保按钮在同一行显示 */
-      margin: 2px; /* 按钮的外边距 */
-      padding: 10px 20px; /* 按钮的内边距 */
-      font-size: 18px;
+    .nav-item {
+      padding: 20px 20px;
       cursor: pointer;
+      text-align: center;
+    }
+
+    .nav-item:hover {
+      background-color: #555;
     }
 </style>
