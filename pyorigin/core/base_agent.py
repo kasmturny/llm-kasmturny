@@ -196,11 +196,12 @@ class Bert:
         self.vocab_path = os.path.join(self.pretrained_path, 'vocab.txt')
         self.config_path = os.path.join(self.pretrained_path, "bert_config.json")
         # 获取对象
-        self.config = BertConfig.from_json_file(self.config_path)
-        self.tokenizer = BertTokenizer.from_pretrained(self.vocab_path)
+        self.bert_config = BertConfig.from_json_file(self.config_path)
+        self.bert_tokenizer = BertTokenizer.from_pretrained(self.vocab_path)
+        self.tfbert_model1 = TFBertModel.from_pretrained(self.pretrained_path, from_pt=True, config=self.bert_config)
 
     def simple_tokenizer(self, text) -> List[str]:
-        tokens = self.tokenizer.tokenize(text)
+        tokens = self.bert_tokenizer.tokenize(text)
         return tokens
 
 
@@ -257,6 +258,6 @@ if __name__ == "__main__":
     #     print(message['value']+hun)
     # Kafka().consume("test", "kasmturny", print_add_hundred ,100)
     """Bert测试"""
-    bert = Bert().simple_tokenizer("兔子最可爱")
-    print(bert)
+    bert = Bert()
+    print(bert.simple_tokenizer("兔子最可爱"))
     print("断点")
