@@ -10,9 +10,10 @@ from typing import List, Dict, Any, Union, Callable
 from retry import retry
 from pyorigin.config.init_class import InitClass
 from langchain_core.prompts import PromptTemplate
-from langchain_core.output_parsers import StrOutputParser,JsonOutputParser
+from langchain_core.output_parsers import StrOutputParser, JsonOutputParser
 from kafka.errors import KafkaError
 from kafka import KafkaProducer, KafkaConsumer
+
 
 class BigModel:
     def __init__(self):
@@ -28,7 +29,7 @@ class BigModel:
         return output_text
 
     @retry(tries=3)
-    def json_output_invoke(self, content, template,output_parser=JsonOutputParser(), examples="", history="") -> Any:
+    def json_output_invoke(self, content, template, output_parser=JsonOutputParser(), examples="", history="") -> Any:
         model = self.model
         prompt = PromptTemplate.from_template(
             str(template)
@@ -36,35 +37,38 @@ class BigModel:
         output_text = (prompt | model | output_parser).invoke(input=content)
         return output_text
 
+
 class LocalEmbedding:
     def __init__(self):
         self.embedding = InitClass().get_local_embedding()
 
-    def get_embedding(self, text: str)-> List[float]:
+    def get_embedding(self, text: str) -> List[float]:
         return self.embedding.embed_query(text)
+
 
 class Embedding:
     def __init__(self):
         self.embedding = InitClass().get_embedding()
 
     def get_embedding(self, text: str) -> List[float]:
-        method="POST"
-        url=self.embedding.embedding_url
-        headers={'Authorization': f'Bearer {self.embedding.api_key}',
-                'User-Agent': 'Apifox/1.0.0 (https://apifox.com)',
-                'Content-Type': 'application/json'
-        }
-        data=json.dumps({"model": self.embedding.embedding_model_name,
-                        "input": text
-                        })
+        method = "POST"
+        url = self.embedding.embedding_url
+        headers = {'Authorization': f'Bearer {self.embedding.api_key}',
+                   'User-Agent': 'Apifox/1.0.0 (https://apifox.com)',
+                   'Content-Type': 'application/json'
+                   }
+        data = json.dumps({"model": self.embedding.embedding_model_name,
+                           "input": text
+                           })
         response = requests.request(method=method, url=url, headers=headers, data=data)
         return response.json()['data'][0]["embedding"]
+
 
 class Redis:
     def __init__(self):
         self.redis = InitClass().get_redis()
 
-    def push_redis(self,data: dict, group_id: str):
+    def push_redis(self, data: dict, group_id: str):
         redis = self.redis
         data.update({"chat_time": round(time.time())})  # 添加时间戳字段
         key = f"chat_server:{group_id}"  # 在chat_server:后面的group_id作为键
@@ -77,17 +81,19 @@ class Redis:
         messages = redis.lrange(key, start, end)
         return [json.loads(message) for message in messages]
 
-    def clear_redis(self, group_id: str,):
+    def clear_redis(self, group_id: str, ):
         redis = self.redis
         key = f"chat_server:{group_id}"
         redis.delete(key)
+
 
 class Milvus:
     def __init__(self):
         self.milvus = InitClass().get_milvus()
         self.embedding = InitClass().get_local_embedding()
 
-    def create_milvus_collection(self, collection_name: str, fields: List[FieldSchema] = None, description: str = "默认无描述"):
+    def create_milvus_collection(self, collection_name: str, fields: List[FieldSchema] = None,
+                                 description: str = "默认无描述"):
         """没有fields就使用默认参数，集合的描述默认为None"""
         if self.milvus.has_collection(collection_name):
             print(f"集合 {collection_name} 已存在,不可重复创建.")
@@ -95,7 +101,7 @@ class Milvus:
         if fields is None:
             fields = [
                 FieldSchema(name="id", dtype=DataType.INT64, is_primary=True, description="primary id", auto_id=True),
-                FieldSchema(name="md5id", dtype=DataType.VARCHAR, max_length=32,description="md5id"),
+                FieldSchema(name="md5id", dtype=DataType.VARCHAR, max_length=32, description="md5id"),
                 FieldSchema(name="input", dtype=DataType.VARCHAR, max_length=65535, description="input"),
                 FieldSchema(name="output", dtype=DataType.VARCHAR, max_length=65535, description="output"),
                 FieldSchema(name="embeddings", dtype=DataType.FLOAT_VECTOR, dim=1024, description="vector")
@@ -133,7 +139,8 @@ class Milvus:
             )
         print(res)
 
-    def query_milvus_data(self, query: str, collection_name: str, vector_size: int, output_fields: List[str] = None, limit:int=1) -> Any:
+    def query_milvus_data(self, query: str, collection_name: str, vector_size: int, output_fields: List[str] = None,
+                          limit: int = 1) -> Any:
         """查询数据"""
         vector = self.embedding.embed_query(query)
         res = self.milvus.search(
@@ -147,6 +154,7 @@ class Milvus:
             output_fields=output_fields
         )
         return res
+
 
 class Kafka:
     def __init__(self):
@@ -178,21 +186,22 @@ class Kafka:
             func(message_dict, *args, **kwargs)
             print(f"（Group_Id：{group_id}）从（Topic:{topic}）收到消息: {message.value},已处理,已提交")
 
+
 class Bert:
     def __init__(self):
         self.bert = InitClass().get_bert()
+        # 获取路径
         self.pretrained_path = self.bert.base_model_path
-        self.config_path = os.path.join(self.pretrained_path, "bert_config.json")
         self.checkpoint_path = os.path.join(self.pretrained_path, "bert_model.ckpt")
         self.vocab_path = os.path.join(self.pretrained_path, 'vocab.txt')
+        self.config_path = os.path.join(self.pretrained_path, "bert_config.json")
+        # 获取对象
+        self.config = BertConfig.from_json_file(self.config_path)
         self.tokenizer = BertTokenizer.from_pretrained(self.vocab_path)
 
     def simple_tokenizer(self, text) -> List[str]:
         tokens = self.tokenizer.tokenize(text)
         return tokens
-
-
-
 
 
 if __name__ == "__main__":
