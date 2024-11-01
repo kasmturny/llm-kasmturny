@@ -6,15 +6,9 @@ pip install langchain langchain-core langchain-community langchain-openai langgr
 
 pip install pymilvus redis kafka-python
 
-pip install sentence_transformers
+pip install fastapi uvicorn streamlit retry
 
-pip install fastapi uvicorn
-
-pip install streamlit
-
-pip install retry
-
-pip install tensorflow tf-keras
+pip install sentence_transformers tensorflow tf-keras
 ```
 ## 二、命令行
 ```
