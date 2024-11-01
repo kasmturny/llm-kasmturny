@@ -3,7 +3,6 @@ import json
 import os
 import re
 import time
-
 import numpy as np
 import requests
 from pymilvus import DataType, FieldSchema, CollectionSchema, Collection
@@ -203,7 +202,7 @@ class Bert:
         self.bert_tokenizer = BertTokenizer.from_pretrained(self.pretrained_path)
         self.bert_model = BertModel.from_pretrained(self.pretrained_path, config=self.bert_config)
         # 特殊对象
-        self.tfbert_model1 = TFBertModel.from_pretrained(self.pretrained_path, from_pt=True, config=self.bert_config)
+        self.tfbert_model = TFBertModel.from_pretrained(self.pretrained_path, from_pt=True, config=self.bert_config)
 
     def simple_tokenizer(self, text) -> List[str]:
         tokens = self.bert_tokenizer.tokenize(text)
@@ -213,8 +212,6 @@ class Bert:
         inputs = self.bert_tokenizer(text, return_tensors='pt')
         outputs = self.bert_model(**inputs)
         return outputs.pooler_output
-
-
 
 
 if __name__ == "__main__":
@@ -270,6 +267,6 @@ if __name__ == "__main__":
     #     print(message['value']+hun)
     # Kafka().consume("test", "kasmturny", print_add_hundred ,100)
     """Bert测试"""
-    # bert = Bert()
-    # print(bert.get_bert_embedding("兔子最可爱"))
+    bert = Bert()
+    print(bert.get_bert_embedding("兔子最可爱"))
     print("断点")
