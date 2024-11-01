@@ -99,6 +99,12 @@ class ConfigManager:
         topic = self.config.get("KAFKA","TOPIC")
         return KafkaConfig(host, port, group_id,topic)
 
+    def get_bert_config(self) -> BertConfig:
+        """bert配置"""
+        bert_model_path = self.config.get("BERT", "BASE_MODEL_PATH")
+        wwm_model_path = self.config.get("BERT", "WWM_MODEL_PATH")
+        return BertConfig(bert_model_path, wwm_model_path)
+
 
 if __name__ == "__main__":
     # model = ConfigManager().get_model_config()
@@ -107,4 +113,5 @@ if __name__ == "__main__":
     # local_embedding = ConfigManager().get_local_embedding_config()
     # embeding = ConfigManager().get_embedding_config()
     # kafka = ConfigManager().get_kafka_config()
+    bert = ConfigManager().get_bert_config()
     print('断点')
