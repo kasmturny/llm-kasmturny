@@ -65,7 +65,7 @@ def split_dataset(df):
 
 if __name__ == '__main__':
     # parameters
-    data_path = "data.txt"  # 数据路径
+    data_path = "multi_data.txt"  # 数据路径
     model_path = "hfl/chinese-bert-wwm"  # 模型路径，建议预先下载(https://huggingface.co/bert-base-chinese#)
 
     max_length = 32

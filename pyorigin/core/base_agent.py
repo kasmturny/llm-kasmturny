@@ -198,7 +198,6 @@ class Bert:
         self.bert_name = InitClass().get_bert().base_model_name
         self.tokenizer = BertTokenizer.from_pretrained(self.bert_name)
         self.model = BertModel.from_pretrained(self.bert_name)
-        self.config = BertConfig.from_pretrained(self.bert_name)
 
     def get_embedding(self, text):
         # 输入文本

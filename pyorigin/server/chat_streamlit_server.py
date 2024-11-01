@@ -3,6 +3,8 @@ import time
 import uuid
 import openai
 import traceback
+
+import streamlit
 import streamlit as st
 from pyorigin.utils.print_util import print_red
 from pyorigin.core.base_agent import BigModel
