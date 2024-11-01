@@ -42,6 +42,11 @@ class KafkaConfig:
         self.group_id: str = group_id
         self.topic: str = topic
 
+class BertConfig:
+    def __init__(self, base_model_path,wwm_model_path):
+        self.base_model_path: str = base_model_path
+        self.wwm_model_path: str = wwm_model_path
+
 
 class ConfigManager:
     def __init__(self):
@@ -94,13 +99,19 @@ class ConfigManager:
         topic = self.config.get("KAFKA","TOPIC")
         return KafkaConfig(host, port, group_id,topic)
 
+    def get_bert_config(self) -> BertConfig:
+        """bert配置"""
+        bert_model_path = self.config.get("BERT", "BASE_MODEL_PATH")
+        wwm_model_path = self.config.get("BERT", "WWM_MODEL_PATH")
+        return BertConfig(bert_model_path, wwm_model_path)
 
 
 if __name__ == "__main__":
-    model = ConfigManager().get_model_config()
-    redis = ConfigManager().get_redis_config()
-    milvus = ConfigManager().get_milvus_config()
-    local_embedding = ConfigManager().get_local_embedding_config()
-    embeding = ConfigManager().get_embedding_config()
-    kafka = ConfigManager().get_kafka_config()
+    # model = ConfigManager().get_model_config()
+    # redis = ConfigManager().get_redis_config()
+    # milvus = ConfigManager().get_milvus_config()
+    # local_embedding = ConfigManager().get_local_embedding_config()
+    # embeding = ConfigManager().get_embedding_config()
+    # kafka = ConfigManager().get_kafka_config()
+    bert = ConfigManager().get_bert_config()
     print('断点')
