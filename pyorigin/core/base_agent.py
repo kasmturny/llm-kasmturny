@@ -8,6 +8,8 @@ import requests
 from pymilvus import DataType, FieldSchema, CollectionSchema, Collection
 from typing import List, Dict, Any, Union, Callable
 from retry import retry
+
+
 from pyorigin.config.init_class import InitClass
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser, JsonOutputParser
@@ -191,27 +193,18 @@ class Bert:
 
     def __init__(self):
         # 在这里设置依赖，平时测试不希望出现它
-        from transformers import BertConfig, TFBertModel, BertTokenizer, BertModel
+        from transformers import BertConfig, TFBertModel, BertTokenizer, BertModel,TFBertForSequenceClassification
         # 获取路径
-        self.pretrained_path = InitClass().get_bert().base_model_path
-        self.checkpoint_path = os.path.join(self.pretrained_path, "bert_model.ckpt")
-        self.vocab_path = os.path.join(self.pretrained_path, 'vocab.txt')
-        self.config_path = os.path.join(self.pretrained_path, "bert_config.json")
-        # 获取对象
-        self.bert_config = BertConfig.from_json_file(self.config_path)
-        self.bert_tokenizer = BertTokenizer.from_pretrained(self.pretrained_path)
-        self.bert_model = BertModel.from_pretrained(self.pretrained_path, config=self.bert_config)
-        # 特殊对象
-        self.tfbert_model = TFBertModel.from_pretrained(self.pretrained_path, from_pt=True, config=self.bert_config)
+        self.bert_name = InitClass().get_bert().base_model_name
+        self.tokenizer = BertTokenizer.from_pretrained(self.bert_name)
+        self.model = BertModel.from_pretrained(self.bert_name)
+        self.config = BertConfig.from_pretrained(self.bert_name)
 
-    def simple_tokenizer(self, text) -> List[str]:
-        tokens = self.bert_tokenizer.tokenize(text)
-        return tokens
-
-    def get_bert_embedding(self, text) -> np.array:
-        inputs = self.bert_tokenizer(text, return_tensors='pt')
-        outputs = self.bert_model(**inputs)
-        return outputs.pooler_output
+    def get_embedding(self, text):
+        # 输入文本
+        inputs = self.tokenizer(text, return_tensors="pt")
+        outputs = self.model(**inputs)
+        return outputs
 
 
 if __name__ == "__main__":
@@ -268,5 +261,5 @@ if __name__ == "__main__":
     # Kafka().consume("test", "kasmturny", print_add_hundred ,100)
     """Bert测试"""
     bert = Bert()
-    print(bert.get_bert_embedding("兔子最可爱"))
+    print(bert.get_embedding("兔子最可爱"))
     print("断点")

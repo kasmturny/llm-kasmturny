@@ -43,9 +43,9 @@ class KafkaConfig:
         self.topic: str = topic
 
 class BertConfig:
-    def __init__(self, base_model_path,wwm_model_path):
-        self.base_model_path: str = base_model_path
-        self.wwm_model_path: str = wwm_model_path
+    def __init__(self, base_model_name,wwm_model_name):
+        self.base_model_name: str = base_model_name
+        self.wwm_model_name: str = wwm_model_name
 
 
 class ConfigManager:
@@ -101,9 +101,9 @@ class ConfigManager:
 
     def get_bert_config(self) -> BertConfig:
         """bert配置"""
-        bert_model_path = self.config.get("BERT", "BASE_MODEL_PATH")
-        wwm_model_path = self.config.get("BERT", "WWM_MODEL_PATH")
-        return BertConfig(bert_model_path, wwm_model_path)
+        base_model_name = self.config.get("BERT", "BASE_MODEL_NAME")
+        wwm_model_name = self.config.get("BERT", "WWM_MODEL_NAME")
+        return BertConfig(base_model_name, wwm_model_name)
 
 
 if __name__ == "__main__":
