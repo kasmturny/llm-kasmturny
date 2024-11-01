@@ -14,9 +14,7 @@ pip install streamlit
 
 pip install retry
 
-pip install tensorflow
-
-pip install tf-keras
+pip install tensorflow tf-keras
 ```
 ## 二、命令行
 ```
