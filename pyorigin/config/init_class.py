@@ -58,9 +58,6 @@ class InitClass:
     def get_kafka(self) -> KafkaConfig:
         return self.config.get_kafka_config()
 
-    def get_bert(self) -> BertConfig:
-        return self.config.get_bert_config()
-
 
 
 
@@ -72,7 +69,6 @@ if __name__ == "__main__":
     # local_embedding = InitClass().get_local_embedding()
     # embeding = InitClass().get_embedding()
     # kafka = InitClass().get_kafka()
-    bert = InitClass().get_bert()
     print('断点')
 
 
