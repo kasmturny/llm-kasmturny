@@ -1,5 +1,4 @@
 import logging
-
 logging.basicConfig(level=logging.ERROR)
 # from transformers import TFBertPreTrainedModel,TFBertMainLayer,BertTokenizer
 from transformers import TFBertForSequenceClassification, BertTokenizer
