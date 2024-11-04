@@ -8,7 +8,7 @@ pip install pymilvus redis kafka-python
 
 pip install fastapi uvicorn streamlit retry
 
-pip install sentence_transformers tensorflow tf-keras
+pip install sentence_transformers tensorflow tf-keras pytorch-crf==0.7.2
 ```
 ## 二、命令行
 ```
