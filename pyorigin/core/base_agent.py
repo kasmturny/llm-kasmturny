@@ -234,7 +234,8 @@ if __name__ == "__main__":
     """redis测试"""
     # Redis().push_redis({'name':'兔子','chat':'我是兔子'}, "114514")
     # Redis().push_redis({'name': 'kasmturny', 'chat': '我喜欢麻辣兔头'}, "114514")
-    # print(Redis().query_redis(group_id="114514"))
+    # from pprint import pprint
+    # pprint(Redis().query_redis(group_id="114514"))
     """local_embedding测试"""
     # print(LocalEmbedding().get_embedding("兔子最可爱"))
     """embedding测试"""
