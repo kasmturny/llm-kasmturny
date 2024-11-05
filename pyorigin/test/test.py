@@ -10,7 +10,6 @@ from tqdm import tqdm
 from transformers import BertTokenizer, BertPreTrainedModel, BertModel
 from sklearn.model_selection import train_test_split
 import logging
-import numpy as np
 from sklearn.model_selection import train_test_split
 from torch.utils.data import DataLoader
 from transformers.optimization import get_cosine_schedule_with_warmup, AdamW
@@ -102,6 +101,7 @@ class nerdataset(Dataset):
                 word_list.append(words)
                 label_list.append(labels)
                 # 保存成二进制文件
+            np.savez_compressed(output_dir, words=word_list, labels=label_list)
             logging.info("--------{} data process DONE!--------".format(mode))
             return word_list, label_list
 
@@ -422,6 +422,8 @@ def evaluate(dev_loader, model, mode='dev'):
 
 if __name__ == '__main__':
     nerdataset = nerdataset()
+
+
     x_train, x_dev, y_train, y_dev = nerdataset.dev_split()
     train_dataset = NERDataSet(x_train, y_train)
     dev_dataset = NERDataSet(x_dev, y_dev)

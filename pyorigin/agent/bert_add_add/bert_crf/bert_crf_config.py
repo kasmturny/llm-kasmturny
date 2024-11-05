@@ -5,13 +5,13 @@ import torch
 class BertCrfConfig:
     def __init__(self):
         # 数据
-        self.data_dir = os.getcwd() + '/data/'
+        self.data_dir = os.getcwd() + '\\data\\'
         self.train_dir = self.data_dir + 'train.npz'
         self.test_dir = self.data_dir + 'test.npz'
         self.files = ['train', 'test']
         self.dev_split_size = 0.1
 
-        # 可有可无
+        # 其他
         self.bert_model_name = 'bert-base-chinese'
         self.model_dir = 'C:\\Users\\wzzsa\\.cache\\huggingface\\hub'
         self.log_dir = self.model_dir + 'train.log'

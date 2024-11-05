@@ -10,13 +10,11 @@ from tqdm import tqdm
 from transformers import BertTokenizer, BertPreTrainedModel, BertModel
 from sklearn.model_selection import train_test_split
 import logging
-import numpy as np
 from sklearn.model_selection import train_test_split
 from torch.utils.data import DataLoader
 from transformers.optimization import get_cosine_schedule_with_warmup, AdamW
 
 import torch
-import numpy as np
 from transformers import BertTokenizer
 from torch.utils.data import Dataset
 
@@ -126,10 +124,45 @@ class BertCrf:
     def __init__(self):
         pass
 
+    def load_dev(self, mode):
+        """
+        mode=='train'时，加载训练集，并划分出验证集,word_train, word_dev, label_train, label_dev
+        mode=='test'时，加载训练集和测试集，word_train, word_test, label_train, label_test
+        """
+        if mode == 'train':
+            # 分离出验证集
+            data = np.load(config.train_dir, allow_pickle=True)
+            words = data["words"]
+            labels = data["labels"]
+            x_train, x_dev, y_train, y_dev = train_test_split(words, labels, test_size=config.dev_split_size, random_state=0)
+            return x_train, x_dev, y_train, y_dev
+            # 对npz文件动手
+
+        elif mode == 'test':
+            train_data = np.load(config.train_dir, allow_pickle=True)
+            dev_data = np.load(config.test_dir, allow_pickle=True)
+            word_train = train_data["words"]
+            label_train = train_data["labels"]
+            word_dev = dev_data["words"]
+            label_dev = dev_data["labels"]
+        else:
+            word_train = None
+            label_train = None
+            word_dev = None
+            label_dev = None
+        return word_train, word_dev, label_train, label_dev
+
 
 
 if __name__ == "__main__":
-    bertcrf = BertCrf()
+
+    word_train, word_dev, label_train, label_dev = BertCrf().load_dev('train')
+    train_dataset = NERDataset(word_train, label_train, config)
+    dev_dataset = NERDataset(word_dev, label_dev, config)
+    train_loader = DataLoader(train_dataset, batch_size=config.batch_size,
+                              shuffle=True, collate_fn=train_dataset.collate_fn)
+    dev_loader = DataLoader(dev_dataset, batch_size=config.batch_size,
+                            shuffle=True, collate_fn=dev_dataset.collate_fn)
     print('断点')
 
 
