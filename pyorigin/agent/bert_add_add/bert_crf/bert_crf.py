@@ -1,6 +1,7 @@
 import os
 import json
 import logging
+import numpy as np
 import torch
 from torch import nn
 from torch.nn.utils.rnn import pad_sequence
@@ -9,9 +10,11 @@ from tqdm import tqdm
 from transformers import BertTokenizer, BertPreTrainedModel, BertModel
 from sklearn.model_selection import train_test_split
 import logging
+import numpy as np
 from sklearn.model_selection import train_test_split
 from torch.utils.data import DataLoader
 from transformers.optimization import get_cosine_schedule_with_warmup, AdamW
+
 import torch
 import numpy as np
 from transformers import BertTokenizer
@@ -22,7 +25,7 @@ config = BertCrfConfig()
 
 class NERDataset(Dataset):
     def __init__(self, words, labels, config, word_pad_idx=0, label_pad_idx=-1):
-        self.tokenizer = BertTokenizer.from_pretrained(config.bert, do_lower_case=True)
+        self.tokenizer = BertTokenizer.from_pretrained('bert-base-chinese', do_lower_case=True)
         self.label2id = config.label2id
         self.id2label = {_id: _label for _label, _id in list(config.label2id.items())}
         self.dataset = self.preprocess(words, labels)
@@ -128,6 +131,11 @@ class BertCrf:
 if __name__ == "__main__":
     bertcrf = BertCrf()
     print('断点')
+
+
+
+
+
 
 
 
