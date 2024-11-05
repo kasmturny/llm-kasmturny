@@ -1,3 +1,5 @@
+import os
+os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 import logging
 logging.basicConfig(level=logging.ERROR)
 # from transformers import TFBertPreTrainedModel,TFBertMainLayer,BertTokenizer
