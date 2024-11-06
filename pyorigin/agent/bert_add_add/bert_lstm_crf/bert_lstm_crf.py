@@ -139,9 +139,17 @@ class BertNER(BertPreTrainedModel):
 
         self.bert = BertModel(config)
         self.dropout = nn.Dropout(config.hidden_dropout_prob)
-        self.classifier = nn.Linear(config.hidden_size, config.num_labels)
+        self.classifier = nn.Linear(1024, config.num_labels)
         self.crf = CRF(config.num_labels, batch_first=True)
 
+        self.bilstm = nn.LSTM(
+            input_size=768,  # 1024
+            hidden_size=1024 // 2,  # 1024
+            batch_first=True,
+            num_layers=2,
+            dropout=0.5,  # 0.5
+            bidirectional=True
+        )
         self.init_weights()
 
     def forward(self, input_data, token_type_ids=None, attention_mask=None, labels=None,
@@ -162,8 +170,9 @@ class BertNER(BertPreTrainedModel):
         padded_sequence_output = pad_sequence(origin_sequence_output, batch_first=True)
         # dropout pred_label的一部分feature
         padded_sequence_output = self.dropout(padded_sequence_output)
+        lstm_output, _ = self.bilstm(padded_sequence_output)
         # 得到判别值
-        logits = self.classifier(padded_sequence_output)
+        logits = self.classifier(lstm_output)
         outputs = (logits,)
         if labels is not None:
             loss_mask = labels.gt(-1)
@@ -513,8 +522,9 @@ class BertCrf:
 
     def optimizer_grouped_parameters(self, model):
         if config.full_fine_tuning:
-            # model.named_parameters(): [bert, classifier, crf]
+            # model.named_parameters(): [bert, bilstm, classifier, crf]
             bert_optimizer = list(model.bert.named_parameters())
+            lstm_optimizer = list(model.bilstm.named_parameters())
             classifier_optimizer = list(model.classifier.named_parameters())
             no_decay = ['bias', 'LayerNorm.bias', 'LayerNorm.weight']
             optimizer_grouped_parameters = [
@@ -522,6 +532,10 @@ class BertCrf:
                  'weight_decay': config.weight_decay},
                 {'params': [p for n, p in bert_optimizer if any(nd in n for nd in no_decay)],
                  'weight_decay': 0.0},
+                {'params': [p for n, p in lstm_optimizer if not any(nd in n for nd in no_decay)],
+                 'lr': config.learning_rate * 5, 'weight_decay': config.weight_decay},
+                {'params': [p for n, p in lstm_optimizer if any(nd in n for nd in no_decay)],
+                 'lr': config.learning_rate * 5, 'weight_decay': 0.0},
                 {'params': [p for n, p in classifier_optimizer if not any(nd in n for nd in no_decay)],
                  'lr': config.learning_rate * 5, 'weight_decay': config.weight_decay},
                 {'params': [p for n, p in classifier_optimizer if any(nd in n for nd in no_decay)],
