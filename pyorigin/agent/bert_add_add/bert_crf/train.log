@@ -9,3 +9,18 @@
 
 
 
+2024-11-06 19:00:42,582:INFO: --------Dataset Build!--------
+2024-11-06 19:00:42,583:INFO: --------Get Data-loader!--------
+2024-11-06 19:00:42,629:INFO: --------Load model from C:\Users\wzzsa\.cache\huggingface\hub\bert_crf--------
+2024-11-06 19:02:26,267:INFO: --------Bad Cases reserved !--------
+2024-11-06 19:02:26,356:INFO: test loss: 320.08262307303295, f1 score: 0.6351906158357771
+2024-11-06 19:02:26,356:INFO: f1 score of address: 0.4768856447688565
+2024-11-06 19:02:26,356:INFO: f1 score of book: 0.5187713310580204
+2024-11-06 19:02:26,356:INFO: f1 score of company: 0.6644144144144144
+2024-11-06 19:02:26,356:INFO: f1 score of game: 0.6842837273991655
+2024-11-06 19:02:26,356:INFO: f1 score of government: 0.6723842195540309
+2024-11-06 19:02:26,356:INFO: f1 score of movie: 0.6029411764705882
+2024-11-06 19:02:26,357:INFO: f1 score of name: 0.7857847976307996
+2024-11-06 19:02:26,357:INFO: f1 score of organization: 0.6183699870633894
+2024-11-06 19:02:26,357:INFO: f1 score of position: 0.6125244618395305
+2024-11-06 19:02:26,357:INFO: f1 score of scene: 0.574712643678161
