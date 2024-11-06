@@ -1,4 +1,7 @@
 import os
+
+import numpy
+
 os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 import json
 import logging
@@ -23,8 +26,10 @@ from transformers import BertModel, BertPreTrainedModel
 from torch.nn.utils.rnn import pad_sequence
 from torchcrf import CRF
 
+
 from pyorigin.agent.bert_add_add.bert_crf.bert_crf_config import BertCrfConfig
 config = BertCrfConfig()
+from pyorigin.utils import logo_util
 
 class NERDataset(Dataset):
     """NER数据集类"""
@@ -118,6 +123,7 @@ class NERDataset(Dataset):
 
         # convert data to torch LongTensors
         batch_data = torch.tensor(batch_data, dtype=torch.long)
+        batch_label_starts = numpy.array(batch_label_starts)
         batch_label_starts = torch.tensor(batch_label_starts, dtype=torch.long)
         batch_labels = torch.tensor(batch_labels, dtype=torch.long)
 
@@ -327,7 +333,7 @@ class Metrics:
     def bad_case(self,y_true, y_pred, data):
         if not os.path.exists(config.case_dir):
             os.system(r"touch {}".format(config.case_dir))  # 调用系统命令行来创建文件
-        output = open(config.case_dir, 'w')
+        output = open(config.case_dir, 'w',encoding='utf-8')
         for idx, (t, p) in enumerate(zip(y_true, y_pred)):
             if t == p:
                 continue
@@ -337,7 +343,7 @@ class Metrics:
                 output.write("golden label: " + str(t) + "\n")
                 output.write("model pred: " + str(p) + "\n")
         logging.info("--------Bad Cases reserved !--------")
-class Train:
+class Train_And_Test:
     def __init__(self):
         self.metrics = Metrics()
 
@@ -447,6 +453,32 @@ class Train:
             metrics['f1'] = f1
         metrics['loss'] = float(dev_losses) / len(dev_loader)
         return metrics
+
+    def test(self):
+        data = np.load(config.test_dir, allow_pickle=True)
+        word_test = data["words"]
+        label_test = data["labels"]
+        test_dataset = NERDataset(word_test, label_test, config)
+        logging.info("--------Dataset Build!--------")
+        # build data_loader
+        test_loader = DataLoader(test_dataset, batch_size=config.batch_size,
+                                 shuffle=False, collate_fn=test_dataset.collate_fn)
+        logging.info("--------Get Data-loader!--------")
+        # Prepare model
+        if config.model_dir is not None:
+            model = BertNER.from_pretrained(config.model_dir)
+            model.to(config.device)
+            logging.info("--------Load model from {}--------".format(config.model_dir))
+        else:
+            logging.info("--------No model to test !--------")
+            return
+        val_metrics = self.evaluate(test_loader, model, mode='test')
+        val_f1 = val_metrics['f1']
+        logging.info("test loss: {}, f1 score: {}".format(val_metrics['loss'], val_f1))
+        val_f1_labels = val_metrics['f1_labels']
+        for label in config.labels:
+            logging.info("f1 score of {}: {}".format(label, val_f1_labels[label]))
+
 class BertCrf:
     def __init__(self):
         pass
@@ -502,7 +534,10 @@ class BertCrf:
             optimizer_grouped_parameters = [{'params': [p for n, p in param_optimizer]}]
         return optimizer_grouped_parameters
 
+
+
 if __name__ == "__main__":
+    logo_util.set_logger(config.log_dir)
     """准备数据集"""
     word_train, word_dev, label_train, label_dev = BertCrf().load_dev('train')
     train_dataset = NERDataset(word_train, label_train, config)
@@ -511,15 +546,21 @@ if __name__ == "__main__":
                               shuffle=True, collate_fn=train_dataset.collate_fn)
     dev_loader = DataLoader(dev_dataset, batch_size=config.batch_size,
                             shuffle=True, collate_fn=dev_dataset.collate_fn)
+    logging.info("————————数据集准备完成————————————")
     """准备模型"""
     model = BertNER.from_pretrained('bert-base-chinese', num_labels=len(config.label2id)).to(config.device)
+    logging.info("————————模型初始化完成————————————")
     """准备优化器"""
     optimizer_grouped_parameters=BertCrf().optimizer_grouped_parameters(model)
-    optimizer = AdamW(optimizer_grouped_parameters, lr=config.learning_rate, correct_bias=False)
+    optimizer = AdamW(optimizer_grouped_parameters, lr=config.learning_rate, correct_bias=False, no_deprecation_warning=True)
     train_steps_per_epoch = len(train_dataset) // config.batch_size
     scheduler = get_cosine_schedule_with_warmup(optimizer,
                                                 num_warmup_steps=(config.epoch_num // 10) * train_steps_per_epoch,
                                                 num_training_steps=config.epoch_num * train_steps_per_epoch)
+    logging.info("————————优化器准备完成————————————")
     """训练模型"""
-    Train().train(train_loader, dev_loader, model, optimizer, scheduler, config.model_dir)
+    logging.info("————————准备开始训练————————————")
+    Train_And_Test().train(train_loader, dev_loader, model, optimizer, scheduler, config.model_dir)
+    logging.info("————————测试训练模型————————————")
+    Train_And_Test().test()
     print('断点')

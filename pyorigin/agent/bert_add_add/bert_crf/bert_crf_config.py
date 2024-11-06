@@ -11,11 +11,13 @@ class BertCrfConfig:
         self.files = ['train', 'test']
         self.dev_split_size = 0.1
 
+        # 模型
+        self.bert_model_name = 'bert-base-chinese'                                 # 没有训练的模型
+        self.model_dir = 'C:\\Users\\wzzsa\\.cache\\huggingface\\hub\\bert_crf'    # 训练之后的模型
+
         # 其他
-        self.bert_model_name = 'bert-base-chinese'
-        self.model_dir = 'C:\\Users\\wzzsa\\.cache\\huggingface\\hub'
-        self.log_dir = self.model_dir + 'train.log'
-        self.case_dir = os.getcwd() + '/case/bad_case.txt'
+        self.log_dir = os.getcwd() + '\\train.log'
+        self.case_dir = os.getcwd() + '\\bad_case.txt'
 
         # 参数
         self.full_fine_tuning = True
