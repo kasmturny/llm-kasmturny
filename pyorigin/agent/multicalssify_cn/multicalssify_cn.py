@@ -2,13 +2,28 @@ import os
 os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 import logging
 logging.basicConfig(level=logging.ERROR)
+# from transformers import BertConfig, TFBertModel, BertTokenizer,TFBertForSequenceClassification
 # from transformers import TFBertPreTrainedModel,TFBertMainLayer,BertTokenizer
-from transformers import TFBertForSequenceClassification, BertTokenizer
+from transformers import TFBertForSequenceClassification, BertTokenizer, BertModel
 import tensorflow as tf
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-from pyorigin.core.base_agent import Bert
+class Bert:
+
+    def __init__(self):
+        # 在这里设置依赖，平时测试不希望出现它
+
+        # 获取路径
+        self.bert_name = 'bert-base-chinese'
+        self.tokenizer = BertTokenizer.from_pretrained(self.bert_name)
+        self.model = BertModel.from_pretrained(self.bert_name)
+
+    def get_embedding(self, text):
+        # 输入文本
+        inputs = self.tokenizer(text, return_tensors="pt")
+        outputs = self.model(**inputs)
+        return outputs
 
 
 class MultiClassifyCn:
@@ -17,7 +32,6 @@ class MultiClassifyCn:
         self.labels = labels
         self.data_path = data_path
         self.model = TFBertForSequenceClassification.from_pretrained(self.bert.bert_name, num_labels=len(self.labels))
-    #
 
 
     def data_processed(self):
