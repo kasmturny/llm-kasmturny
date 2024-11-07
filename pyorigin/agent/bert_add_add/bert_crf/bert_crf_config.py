@@ -12,8 +12,9 @@ class BertCrfConfig:
         self.dev_split_size = 0.1
 
         # 模型
-        self.bert_path = 'D:\\Exploitation\\All\\llm-kasmturny\\model\\bert-crf\\model\\bert-base-chinese\\' # 没有训练的模型
-        self.model_dir = 'D:\\Exploitation\\All\\llm-kasmturny\\model\\bert-crf\\experiments\\'    # 训练之后的模型
+        # self.bert_path = 'D:\\Exploitation\\All\\llm-kasmturny\\model\\bert-crf\\model\\bert-base-chinese\\' # 没有训练的模型
+        # self.model_dir = 'D:\\Exploitation\\All\\llm-kasmturny\\model\\bert-crf\\experiments\\'    # 训练之后的模型
+        self.model_dir = 'C:\\Users\\wzzsa\\.cache\\huggingface\\hub\\bert_crf\\'  # 训练之后的模型
 
         # 其他
         self.log_dir = os.getcwd() + '\\train.log'

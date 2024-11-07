@@ -34,7 +34,7 @@ from pyorigin.utils import logo_util
 class NERDataset(Dataset):
     """NER数据集类"""
     def __init__(self, words, labels, config, word_pad_idx=0, label_pad_idx=-1):
-        self.tokenizer = BertTokenizer.from_pretrained(config.bert_path, do_lower_case=True)
+        self.tokenizer = BertTokenizer.from_pretrained('bert-base-chinese', do_lower_case=True)
         self.label2id = config.label2id
         self.id2label = {_id: _label for _label, _id in list(config.label2id.items())}
         self.dataset = self.preprocess(words, labels)
@@ -407,7 +407,7 @@ class Train_And_Test:
         # set model to evaluation mode
         model.eval()
         if mode == 'test':
-            tokenizer = BertTokenizer.from_pretrained(config.bert_path, do_lower_case=True, skip_special_tokens=True)
+            tokenizer = BertTokenizer.from_pretrained('bert-base-chinese', do_lower_case=True, skip_special_tokens=True)
         id2label = config.id2label
         true_tags = []
         pred_tags = []
@@ -548,7 +548,7 @@ if __name__ == "__main__":
                             shuffle=True, collate_fn=dev_dataset.collate_fn)
     logging.info("————————数据集准备完成————————————")
     """准备模型"""
-    model = BertNER.from_pretrained(config.bert_path, num_labels=len(config.label2id)).to(config.device)
+    model = BertNER.from_pretrained('bert-base-chinese', num_labels=len(config.label2id)).to(config.device)
     logging.info("————————模型初始化完成————————————")
     """准备优化器"""
     optimizer_grouped_parameters=BertCrf().optimizer_grouped_parameters(model)
