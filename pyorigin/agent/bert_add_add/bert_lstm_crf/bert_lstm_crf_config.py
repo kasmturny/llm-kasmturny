@@ -12,7 +12,7 @@ class BertLstmCrfConfig:
         self.dev_split_size = 0.1
 
         # 模型
-        self.bert_model_name = 'bert-base-chinese'                                 # 没有训练的模型
+        # self.bert_model_name = 'bert-base-chinese'                                 # 没有训练的模型
         self.model_dir = 'C:\\Users\\wzzsa\\.cache\\huggingface\\hub\\bert_lstm_crf'    # 训练之后的模型
 
         # 其他
@@ -57,7 +57,7 @@ class BertLstmCrfConfig:
 
 
 if __name__ == '__main__':
-    config = BertCrfConfig()
+    config = BertLstmCrfConfig()
     print('断点')
 
 
