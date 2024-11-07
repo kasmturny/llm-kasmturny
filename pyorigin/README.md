@@ -8,7 +8,7 @@ pip install pymilvus==2.4.8 redis==5.2.0 kafka-python==2.0.2
 
 pip install fastapi==0.115.4 uvicorn==0.32.0 streamlit==1.39.0 retry==0.9.2
 
-pip install sentence_transformers==3.2.1 tensorflow==2.18.0 tf-keras==2.18 pytorch-crf==0.7.2
+pip install sentence_transformers==3.2.1 tensorflow==2.18.0 tf-keras==2.18 pytorch-crf==0.7.2 torch==2.5.1
 ```
 ## 二、命令行
 ```
