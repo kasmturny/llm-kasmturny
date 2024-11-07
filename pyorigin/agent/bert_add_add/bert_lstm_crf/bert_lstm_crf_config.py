@@ -2,7 +2,7 @@ import os
 import torch
 
 
-class BertCrfConfig:
+class BertLstmCrfConfig:
     def __init__(self):
         # 数据
         self.data_dir = os.getcwd() + '\\data\\'
