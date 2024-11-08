@@ -25,8 +25,8 @@ from torch import nn
 from transformers import BertModel, BertPreTrainedModel
 from torch.nn.utils.rnn import pad_sequence
 from torchcrf import CRF
-from pyorigin.agent.bert_add_add.bert_crf.bert_crf_config import BertCrfConfig
-config = BertCrfConfig()
+from pyorigin.agent.bert_add_add.bert_softmax.bert_softmax_config import BertSoftmaxConfig
+config = BertSoftmaxConfig()
 from pyorigin.utils import logo_util
 
 class NERDataset(Dataset):
@@ -482,7 +482,7 @@ class Train_And_Test:
         val_f1_labels = val_metrics['f1_labels']
         for label in config.labels:
             logging.info("f1 score of {}: {}".format(label, val_f1_labels[label]))
-class BertCrf:
+class BertSoftmax:
     def __init__(self):
         pass
 
@@ -542,7 +542,7 @@ class BertCrf:
 if __name__ == "__main__":
     logo_util.set_logger(config.log_dir)
     # """准备数据集"""
-    # word_train, word_dev, label_train, label_dev = BertCrf().load_dev('train')
+    # word_train, word_dev, label_train, label_dev = BertSoftmax().load_dev('train')
     # train_dataset = NERDataset(word_train, label_train, config)
     # dev_dataset = NERDataset(word_dev, label_dev, config)
     # train_loader = DataLoader(train_dataset, batch_size=config.batch_size,
@@ -554,7 +554,7 @@ if __name__ == "__main__":
     # model = BertNER.from_pretrained('bert-base-chinese', num_labels=len(config.label2id)).to(config.device)
     # logging.info("————————模型初始化完成————————————")
     # """准备优化器"""
-    # optimizer_grouped_parameters=BertCrf().optimizer_grouped_parameters(model)
+    # optimizer_grouped_parameters=BertSoftmax().optimizer_grouped_parameters(model)
     # optimizer = AdamW(optimizer_grouped_parameters, lr=config.learning_rate, correct_bias=False, no_deprecation_warning=True)
     # train_steps_per_epoch = len(train_dataset) // config.batch_size
     # scheduler = get_cosine_schedule_with_warmup(optimizer,

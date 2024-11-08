@@ -2,36 +2,50 @@ import os
 import torch
 
 
-class BertSoftmaxConfig:
+class BilstmCrfConfig:
     def __init__(self):
+        # 设备
+        self.device = self.cpu_or_gpu()
+        self.gpu = ''
         # 数据
         self.data_dir = os.getcwd() + '\\data\\'
         self.train_dir = self.data_dir + 'train.npz'
         self.test_dir = self.data_dir + 'test.npz'
         self.files = ['train', 'test']
+        self.vocab_path = self.data_dir + 'vocab.npz'
         self.dev_split_size = 0.1
 
         # 模型
         # self.bert_path = 'D:\\Exploitation\\All\\llm-kasmturny\\model\\bert-crf\\model\\bert-base-chinese\\' # 没有训练的模型
         # self.model_dir = 'D:\\Exploitation\\All\\llm-kasmturny\\model\\bert-crf\\experiments\\'    # 训练之后的模型
-        self.model_dir = 'C:\\Users\\wzzsa\\.cache\\huggingface\\hub\\bert_softmax\\'  # 训练之后的模型
+        # self.model_dir = 'C:\\Users\\wzzsa\\.cache\\huggingface\\hub\\bert_crf\\'  # 训练之后的模型
+        self.exp_dir = 'D:\\Exploitation\\All\\llm-kasmturny\\model\\bilstm-crf\\'
+        self.model_dir = self.exp_dir + 'model.pth'
+
 
         # 其他
         self.log_dir = os.getcwd() + '\\train.log'
         self.case_dir = os.getcwd() + '\\bad_case.txt'
 
         # 参数
-        self.full_fine_tuning = True
-        self.load_before = False
-        self.device = self.cpu_or_gpu()
-        self.learning_rate = 3e-5
-        self.weight_decay = 0.01
-        self.clip_grad = 5
+
+        self.max_vocab_size = 1000000
+
+        self.n_split = 5
+        self.dev_split_size = 0.1
         self.batch_size = 32
-        self.epoch_num = 50
+        self.embedding_size = 128
+        self.hidden_size = 384
+        self.drop_out = 0.5
+        self.lr = 0.001
+        self.betas = (0.9, 0.999)
+        self.lr_step = 5
+        self.lr_gamma = 0.8
+
+        self.epoch_num = 30
         self.min_epoch_num = 5
         self.patience = 0.0002
-        self.patience_num = 10
+        self.patience_num = 5
 
         # 标签
         self.labels = ['address', 'book', 'company', 'game', 'government', 'movie',
@@ -58,7 +72,7 @@ class BertSoftmaxConfig:
 
 
 if __name__ == '__main__':
-    config = BertSoftmaxConfig()
+    config = BilstmCrfConfig()
     print('断点')
 
 
