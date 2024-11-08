@@ -542,29 +542,29 @@ class BertCrf:
 
 if __name__ == "__main__":
     logo_util.set_logger(config.log_dir)
-    """准备数据集"""
-    word_train, word_dev, label_train, label_dev = BertCrf().load_dev('train')
-    train_dataset = NERDataset(word_train, label_train, config)
-    dev_dataset = NERDataset(word_dev, label_dev, config)
-    train_loader = DataLoader(train_dataset, batch_size=config.batch_size,
-                              shuffle=True, collate_fn=train_dataset.collate_fn)
-    dev_loader = DataLoader(dev_dataset, batch_size=config.batch_size,
-                            shuffle=True, collate_fn=dev_dataset.collate_fn)
-    logging.info("————————数据集准备完成————————————")
-    """准备模型"""
-    model = BertNER.from_pretrained(config.roberta_model, num_labels=len(config.label2id)).to(config.device)
-    logging.info("————————模型初始化完成————————————")
-    """准备优化器"""
-    optimizer_grouped_parameters=BertCrf().optimizer_grouped_parameters(model)
-    optimizer = AdamW(optimizer_grouped_parameters, lr=config.learning_rate, correct_bias=False)
-    train_steps_per_epoch = len(train_dataset) // config.batch_size
-    scheduler = get_cosine_schedule_with_warmup(optimizer,
-                                                num_warmup_steps=(config.epoch_num // 10) * train_steps_per_epoch,
-                                                num_training_steps=config.epoch_num * train_steps_per_epoch)
-    logging.info("————————优化器准备完成————————————")
-    """训练模型"""
-    logging.info("————————准备开始训练————————————")
-    Train_And_Test().train(train_loader, dev_loader, model, optimizer, scheduler, config.model_dir)
-    logging.info("————————测试训练模型————————————")
+    # """准备数据集"""
+    # word_train, word_dev, label_train, label_dev = BertCrf().load_dev('train')
+    # train_dataset = NERDataset(word_train, label_train, config)
+    # dev_dataset = NERDataset(word_dev, label_dev, config)
+    # train_loader = DataLoader(train_dataset, batch_size=config.batch_size,
+    #                           shuffle=True, collate_fn=train_dataset.collate_fn)
+    # dev_loader = DataLoader(dev_dataset, batch_size=config.batch_size,
+    #                         shuffle=True, collate_fn=dev_dataset.collate_fn)
+    # logging.info("————————数据集准备完成————————————")
+    # """准备模型"""
+    # model = BertNER.from_pretrained(config.roberta_model, num_labels=len(config.label2id)).to(config.device)
+    # logging.info("————————模型初始化完成————————————")
+    # """准备优化器"""
+    # optimizer_grouped_parameters=BertCrf().optimizer_grouped_parameters(model)
+    # optimizer = AdamW(optimizer_grouped_parameters, lr=config.learning_rate, correct_bias=False)
+    # train_steps_per_epoch = len(train_dataset) // config.batch_size
+    # scheduler = get_cosine_schedule_with_warmup(optimizer,
+    #                                             num_warmup_steps=(config.epoch_num // 10) * train_steps_per_epoch,
+    #                                             num_training_steps=config.epoch_num * train_steps_per_epoch)
+    # logging.info("————————优化器准备完成————————————")
+    # """训练模型"""
+    # logging.info("————————准备开始训练————————————")
+    # Train_And_Test().train(train_loader, dev_loader, model, optimizer, scheduler, config.model_dir)
+    # logging.info("————————测试训练模型————————————")
     Train_And_Test().test()
     print('断点')
