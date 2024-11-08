@@ -1,18 +1,8 @@
 import os
-
 import numpy
-
 os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
-import json
-import logging
 import numpy as np
-import torch
-from torch import nn
-from torch.nn.utils.rnn import pad_sequence
-from torch.utils.data import Dataset
 from tqdm import tqdm
-from transformers import BertTokenizer, BertPreTrainedModel, BertModel
-from sklearn.model_selection import train_test_split
 import logging
 from sklearn.model_selection import train_test_split
 from torch.utils.data import DataLoader
@@ -22,7 +12,7 @@ import torch
 from transformers import BertTokenizer
 from torch.utils.data import Dataset
 from torch import nn
-from transformers import BertModel, BertPreTrainedModel
+from transformers.modeling_bert import *
 from torch.nn.utils.rnn import pad_sequence
 from torchcrf import CRF
 
@@ -34,7 +24,7 @@ from pyorigin.utils import logo_util
 class NERDataset(Dataset):
     """NER数据集类"""
     def __init__(self, words, labels, config, word_pad_idx=0, label_pad_idx=-1):
-        self.tokenizer = BertTokenizer.from_pretrained('bert-base-chinese', do_lower_case=True)
+        self.tokenizer = BertTokenizer.from_pretrained(config.bert_model, do_lower_case=True)
         self.label2id = config.label2id
         self.id2label = {_id: _label for _label, _id in list(config.label2id.items())}
         self.dataset = self.preprocess(words, labels)
@@ -139,15 +129,15 @@ class BertNER(BertPreTrainedModel):
 
         self.bert = BertModel(config)
         self.dropout = nn.Dropout(config.hidden_dropout_prob)
-        self.classifier = nn.Linear(1024, config.num_labels)
+        self.classifier = nn.Linear(config.hidden_size, config.num_labels)
         self.crf = CRF(config.num_labels, batch_first=True)
 
         self.bilstm = nn.LSTM(
-            input_size=768,  # 1024
-            hidden_size=1024 // 2,  # 1024
+            input_size=config.lstm_embedding_size,  # 1024
+            hidden_size=config.hidden_size // 2,  # 1024
             batch_first=True,
             num_layers=2,
-            dropout=0.5,  # 0.5
+            dropout=config.lstm_dropout_prob,  # 0.5
             bidirectional=True
         )
         self.init_weights()
@@ -416,7 +406,7 @@ class Train_And_Test:
         # set model to evaluation mode
         model.eval()
         if mode == 'test':
-            tokenizer = BertTokenizer.from_pretrained('bert-base-chinese', do_lower_case=True, skip_special_tokens=True)
+            tokenizer = BertTokenizer.from_pretrained(config.bert_model, do_lower_case=True, skip_special_tokens=True)
         id2label = config.id2label
         true_tags = []
         pred_tags = []
@@ -562,11 +552,11 @@ if __name__ == "__main__":
                             shuffle=True, collate_fn=dev_dataset.collate_fn)
     logging.info("————————数据集准备完成————————————")
     """准备模型"""
-    model = BertNER.from_pretrained('bert-base-chinese', num_labels=len(config.label2id)).to(config.device)
+    model = BertNER.from_pretrained(config.roberta_model, num_labels=len(config.label2id)).to(config.device)
     logging.info("————————模型初始化完成————————————")
     """准备优化器"""
     optimizer_grouped_parameters=BertCrf().optimizer_grouped_parameters(model)
-    optimizer = AdamW(optimizer_grouped_parameters, lr=config.learning_rate, correct_bias=False, no_deprecation_warning=True)
+    optimizer = AdamW(optimizer_grouped_parameters, lr=config.learning_rate, correct_bias=False)
     train_steps_per_epoch = len(train_dataset) // config.batch_size
     scheduler = get_cosine_schedule_with_warmup(optimizer,
                                                 num_warmup_steps=(config.epoch_num // 10) * train_steps_per_epoch,
