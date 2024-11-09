@@ -1,22 +1,22 @@
-2024-11-08 09:15:35,046:INFO: Model name 'D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\' not found in model shortcut name list (bert-base-uncased, bert-large-uncased, bert-base-cased, bert-large-cased, bert-base-multilingual-uncased, bert-base-multilingual-cased, bert-base-chinese, bert-base-german-cased, bert-large-uncased-whole-word-masking, bert-large-cased-whole-word-masking, bert-large-uncased-whole-word-masking-finetuned-squad, bert-large-cased-whole-word-masking-finetuned-squad, bert-base-cased-finetuned-mrpc, bert-base-german-dbmdz-cased, bert-base-german-dbmdz-uncased). Assuming 'D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\' is a path or url to a directory containing tokenizer files.
-2024-11-08 09:15:35,046:INFO: Didn't find file D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\added_tokens.json. We won't load it.
-2024-11-08 09:15:35,047:INFO: Didn't find file D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\special_tokens_map.json. We won't load it.
-2024-11-08 09:15:35,047:INFO: Didn't find file D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\tokenizer_config.json. We won't load it.
-2024-11-08 09:15:35,047:INFO: loading file D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\vocab.txt
-2024-11-08 09:15:35,047:INFO: loading file None
-2024-11-08 09:15:35,047:INFO: loading file None
-2024-11-08 09:15:35,047:INFO: loading file None
-2024-11-08 09:15:42,366:INFO: Model name 'D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\' not found in model shortcut name list (bert-base-uncased, bert-large-uncased, bert-base-cased, bert-large-cased, bert-base-multilingual-uncased, bert-base-multilingual-cased, bert-base-chinese, bert-base-german-cased, bert-large-uncased-whole-word-masking, bert-large-cased-whole-word-masking, bert-large-uncased-whole-word-masking-finetuned-squad, bert-large-cased-whole-word-masking-finetuned-squad, bert-base-cased-finetuned-mrpc, bert-base-german-dbmdz-cased, bert-base-german-dbmdz-uncased). Assuming 'D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\' is a path or url to a directory containing tokenizer files.
-2024-11-08 09:15:42,366:INFO: Didn't find file D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\added_tokens.json. We won't load it.
-2024-11-08 09:15:42,367:INFO: Didn't find file D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\special_tokens_map.json. We won't load it.
-2024-11-08 09:15:42,367:INFO: Didn't find file D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\tokenizer_config.json. We won't load it.
-2024-11-08 09:15:42,367:INFO: loading file D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\vocab.txt
-2024-11-08 09:15:42,367:INFO: loading file None
-2024-11-08 09:15:42,367:INFO: loading file None
-2024-11-08 09:15:42,367:INFO: loading file None
-2024-11-08 09:15:43,198:INFO: ！！！！！！！！方象鹿彈姥頼撹！！！！！！！！！！！！
-2024-11-08 09:15:43,200:INFO: loading configuration file D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_roberta_wwm_large_ext_pytorch\config.json
-2024-11-08 09:15:43,200:INFO: Model config {
+2024-11-09 12:20:46,012:INFO: Model name 'D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\' not found in model shortcut name list (bert-base-uncased, bert-large-uncased, bert-base-cased, bert-large-cased, bert-base-multilingual-uncased, bert-base-multilingual-cased, bert-base-chinese, bert-base-german-cased, bert-large-uncased-whole-word-masking, bert-large-cased-whole-word-masking, bert-large-uncased-whole-word-masking-finetuned-squad, bert-large-cased-whole-word-masking-finetuned-squad, bert-base-cased-finetuned-mrpc, bert-base-german-dbmdz-cased, bert-base-german-dbmdz-uncased). Assuming 'D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\' is a path or url to a directory containing tokenizer files.
+2024-11-09 12:20:46,013:INFO: Didn't find file D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\added_tokens.json. We won't load it.
+2024-11-09 12:20:46,013:INFO: Didn't find file D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\special_tokens_map.json. We won't load it.
+2024-11-09 12:20:46,013:INFO: Didn't find file D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\tokenizer_config.json. We won't load it.
+2024-11-09 12:20:46,013:INFO: loading file D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\vocab.txt
+2024-11-09 12:20:46,013:INFO: loading file None
+2024-11-09 12:20:46,014:INFO: loading file None
+2024-11-09 12:20:46,014:INFO: loading file None
+2024-11-09 12:20:53,142:INFO: Model name 'D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\' not found in model shortcut name list (bert-base-uncased, bert-large-uncased, bert-base-cased, bert-large-cased, bert-base-multilingual-uncased, bert-base-multilingual-cased, bert-base-chinese, bert-base-german-cased, bert-large-uncased-whole-word-masking, bert-large-cased-whole-word-masking, bert-large-uncased-whole-word-masking-finetuned-squad, bert-large-cased-whole-word-masking-finetuned-squad, bert-base-cased-finetuned-mrpc, bert-base-german-dbmdz-cased, bert-base-german-dbmdz-uncased). Assuming 'D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\' is a path or url to a directory containing tokenizer files.
+2024-11-09 12:20:53,142:INFO: Didn't find file D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\added_tokens.json. We won't load it.
+2024-11-09 12:20:53,142:INFO: Didn't find file D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\special_tokens_map.json. We won't load it.
+2024-11-09 12:20:53,142:INFO: Didn't find file D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\tokenizer_config.json. We won't load it.
+2024-11-09 12:20:53,143:INFO: loading file D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\vocab.txt
+2024-11-09 12:20:53,143:INFO: loading file None
+2024-11-09 12:20:53,143:INFO: loading file None
+2024-11-09 12:20:53,143:INFO: loading file None
+2024-11-09 12:20:53,941:INFO: ！！！！！！！！方象鹿彈姥頼撹！！！！！！！！！！！！
+2024-11-09 12:20:53,942:INFO: loading configuration file D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_roberta_wwm_large_ext_pytorch\config.json
+2024-11-09 12:20:53,943:INFO: Model config {
   "attention_probs_dropout_prob": 0.1,
   "directionality": "bidi",
   "finetuning_task": null,
@@ -48,29 +48,29 @@
   "vocab_size": 21128
 }
 
-2024-11-08 09:15:43,201:INFO: loading weights file D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_roberta_wwm_large_ext_pytorch\pytorch_model.bin
-2024-11-08 09:15:48,946:INFO: Weights of BertNER not initialized from pretrained model: ['classifier.weight', 'classifier.bias', 'crf.start_transitions', 'crf.end_transitions', 'crf.transitions', 'bilstm.weight_ih_l0', 'bilstm.weight_hh_l0', 'bilstm.bias_ih_l0', 'bilstm.bias_hh_l0', 'bilstm.weight_ih_l0_reverse', 'bilstm.weight_hh_l0_reverse', 'bilstm.bias_ih_l0_reverse', 'bilstm.bias_hh_l0_reverse', 'bilstm.weight_ih_l1', 'bilstm.weight_hh_l1', 'bilstm.bias_ih_l1', 'bilstm.bias_hh_l1', 'bilstm.weight_ih_l1_reverse', 'bilstm.weight_hh_l1_reverse', 'bilstm.bias_ih_l1_reverse', 'bilstm.bias_hh_l1_reverse']
-2024-11-08 09:15:48,946:INFO: Weights from pretrained model not used in BertNER: ['cls.predictions.bias', 'cls.predictions.transform.dense.weight', 'cls.predictions.transform.dense.bias', 'cls.predictions.transform.LayerNorm.weight', 'cls.predictions.transform.LayerNorm.bias', 'cls.predictions.decoder.weight', 'cls.seq_relationship.weight', 'cls.seq_relationship.bias']
-2024-11-08 09:15:48,951:INFO: ！！！！！！！！庁侏兜兵晒頼撹！！！！！！！！！！！！
-2024-11-08 09:15:50,760:INFO: ！！！！！！！！單晒匂彈姥頼撹！！！！！！！！！！！！
-2024-11-08 09:15:50,760:INFO: ！！！！！！！！彈姥蝕兵儺膳！！！！！！！！！！！！
-2024-11-08 10:31:35,372:INFO: Epoch: 1, train loss: 1299.9920740914424
-2024-11-08 10:36:24,574:INFO: Epoch: 1, dev loss: 396.7049412446863, f1 score: 0.572106824925816
-2024-11-08 10:36:24,583:INFO: Configuration saved in D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\case\config.json
-2024-11-08 10:36:25,568:INFO: Model weights saved in D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\case\pytorch_model.bin
-2024-11-08 10:36:25,568:INFO: --------Save best model!--------
-2024-11-08 10:37:35,152:INFO: Model name 'D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\' not found in model shortcut name list (bert-base-uncased, bert-large-uncased, bert-base-cased, bert-large-cased, bert-base-multilingual-uncased, bert-base-multilingual-cased, bert-base-chinese, bert-base-german-cased, bert-large-uncased-whole-word-masking, bert-large-cased-whole-word-masking, bert-large-uncased-whole-word-masking-finetuned-squad, bert-large-cased-whole-word-masking-finetuned-squad, bert-base-cased-finetuned-mrpc, bert-base-german-dbmdz-cased, bert-base-german-dbmdz-uncased). Assuming 'D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\' is a path or url to a directory containing tokenizer files.
-2024-11-08 10:37:35,152:INFO: Didn't find file D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\added_tokens.json. We won't load it.
-2024-11-08 10:37:35,153:INFO: Didn't find file D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\special_tokens_map.json. We won't load it.
-2024-11-08 10:37:35,153:INFO: Didn't find file D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\tokenizer_config.json. We won't load it.
-2024-11-08 10:37:35,153:INFO: loading file D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\vocab.txt
-2024-11-08 10:37:35,153:INFO: loading file None
-2024-11-08 10:37:35,153:INFO: loading file None
-2024-11-08 10:37:35,153:INFO: loading file None
-2024-11-08 10:37:36,301:INFO: --------Dataset Build!--------
-2024-11-08 10:37:36,301:INFO: --------Get Data-loader!--------
-2024-11-08 10:37:36,301:INFO: loading configuration file D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\case\config.json
-2024-11-08 10:37:36,302:INFO: Model config {
+2024-11-09 12:20:53,943:INFO: loading weights file D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_roberta_wwm_large_ext_pytorch\pytorch_model.bin
+2024-11-09 12:20:59,751:INFO: Weights of BertNER not initialized from pretrained model: ['classifier.weight', 'classifier.bias', 'crf.start_transitions', 'crf.end_transitions', 'crf.transitions', 'bilstm.weight_ih_l0', 'bilstm.weight_hh_l0', 'bilstm.bias_ih_l0', 'bilstm.bias_hh_l0', 'bilstm.weight_ih_l0_reverse', 'bilstm.weight_hh_l0_reverse', 'bilstm.bias_ih_l0_reverse', 'bilstm.bias_hh_l0_reverse', 'bilstm.weight_ih_l1', 'bilstm.weight_hh_l1', 'bilstm.bias_ih_l1', 'bilstm.bias_hh_l1', 'bilstm.weight_ih_l1_reverse', 'bilstm.weight_hh_l1_reverse', 'bilstm.bias_ih_l1_reverse', 'bilstm.bias_hh_l1_reverse']
+2024-11-09 12:20:59,751:INFO: Weights from pretrained model not used in BertNER: ['cls.predictions.bias', 'cls.predictions.transform.dense.weight', 'cls.predictions.transform.dense.bias', 'cls.predictions.transform.LayerNorm.weight', 'cls.predictions.transform.LayerNorm.bias', 'cls.predictions.decoder.weight', 'cls.seq_relationship.weight', 'cls.seq_relationship.bias']
+2024-11-09 12:20:59,757:INFO: ！！！！！！！！庁侏兜兵晒頼撹！！！！！！！！！！！！
+2024-11-09 12:21:01,438:INFO: ！！！！！！！！單晒匂彈姥頼撹！！！！！！！！！！！！
+2024-11-09 12:21:01,438:INFO: ！！！！！！！！彈姥蝕兵儺膳！！！！！！！！！！！！
+2024-11-09 13:27:26,162:INFO: Epoch: 1, train loss: 1318.9650485350353
+2024-11-09 13:31:23,858:INFO: Epoch: 1, dev loss: 376.22850799560547, f1 score: 0.629130009775171
+2024-11-09 13:31:23,868:INFO: Configuration saved in D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\case\config.json
+2024-11-09 13:31:24,877:INFO: Model weights saved in D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\case\pytorch_model.bin
+2024-11-09 13:31:24,877:INFO: --------Save best model!--------
+2024-11-09 13:50:15,498:INFO: Model name 'D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\' not found in model shortcut name list (bert-base-uncased, bert-large-uncased, bert-base-cased, bert-large-cased, bert-base-multilingual-uncased, bert-base-multilingual-cased, bert-base-chinese, bert-base-german-cased, bert-large-uncased-whole-word-masking, bert-large-cased-whole-word-masking, bert-large-uncased-whole-word-masking-finetuned-squad, bert-large-cased-whole-word-masking-finetuned-squad, bert-base-cased-finetuned-mrpc, bert-base-german-dbmdz-cased, bert-base-german-dbmdz-uncased). Assuming 'D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\' is a path or url to a directory containing tokenizer files.
+2024-11-09 13:50:15,498:INFO: Didn't find file D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\added_tokens.json. We won't load it.
+2024-11-09 13:50:15,499:INFO: Didn't find file D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\special_tokens_map.json. We won't load it.
+2024-11-09 13:50:15,499:INFO: Didn't find file D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\tokenizer_config.json. We won't load it.
+2024-11-09 13:50:15,499:INFO: loading file D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\vocab.txt
+2024-11-09 13:50:15,499:INFO: loading file None
+2024-11-09 13:50:15,499:INFO: loading file None
+2024-11-09 13:50:15,499:INFO: loading file None
+2024-11-09 13:50:16,574:INFO: --------Dataset Build!--------
+2024-11-09 13:50:16,574:INFO: --------Get Data-loader!--------
+2024-11-09 13:50:16,575:INFO: loading configuration file D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\case\config.json
+2024-11-09 13:50:16,575:INFO: Model config {
   "attention_probs_dropout_prob": 0.1,
   "directionality": "bidi",
   "finetuning_task": null,
@@ -102,25 +102,25 @@
   "vocab_size": 21128
 }
 
-2024-11-08 10:37:36,302:INFO: loading weights file D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\case\pytorch_model.bin
-2024-11-08 10:37:42,088:INFO: --------Load model from D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\case--------
-2024-11-08 10:37:42,089:INFO: Model name 'D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\' not found in model shortcut name list (bert-base-uncased, bert-large-uncased, bert-base-cased, bert-large-cased, bert-base-multilingual-uncased, bert-base-multilingual-cased, bert-base-chinese, bert-base-german-cased, bert-large-uncased-whole-word-masking, bert-large-cased-whole-word-masking, bert-large-uncased-whole-word-masking-finetuned-squad, bert-large-cased-whole-word-masking-finetuned-squad, bert-base-cased-finetuned-mrpc, bert-base-german-dbmdz-cased, bert-base-german-dbmdz-uncased). Assuming 'D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\' is a path or url to a directory containing tokenizer files.
-2024-11-08 10:37:42,089:INFO: Didn't find file D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\added_tokens.json. We won't load it.
-2024-11-08 10:37:42,089:INFO: Didn't find file D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\special_tokens_map.json. We won't load it.
-2024-11-08 10:37:42,090:INFO: Didn't find file D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\tokenizer_config.json. We won't load it.
-2024-11-08 10:37:42,090:INFO: loading file D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\vocab.txt
-2024-11-08 10:37:42,090:INFO: loading file None
-2024-11-08 10:37:42,090:INFO: loading file None
-2024-11-08 10:37:42,090:INFO: loading file None
-2024-11-08 10:43:24,496:INFO: --------Bad Cases reserved !--------
-2024-11-08 10:43:24,569:INFO: test loss: 401.297852289109, f1 score: 0.5896116050538138
-2024-11-08 10:43:24,569:INFO: f1 score of address: 0.44306418219461696
-2024-11-08 10:43:24,570:INFO: f1 score of book: 0.5347985347985348
-2024-11-08 10:43:24,570:INFO: f1 score of company: 0.7013333333333334
-2024-11-08 10:43:24,570:INFO: f1 score of game: 0.7455621301775147
-2024-11-08 10:43:24,570:INFO: f1 score of government: 0.6233333333333334
-2024-11-08 10:43:24,570:INFO: f1 score of movie: 0.5979381443298968
-2024-11-08 10:43:24,570:INFO: f1 score of name: 0.7184661957618568
-2024-11-08 10:43:24,570:INFO: f1 score of organization: 0.6702412868632708
-2024-11-08 10:43:24,570:INFO: f1 score of position: 0.45579078455790784
-2024-11-08 10:43:24,570:INFO: f1 score of scene: 0.15873015873015872
+2024-11-09 13:50:16,576:INFO: loading weights file D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\case\pytorch_model.bin
+2024-11-09 13:50:22,086:INFO: --------Load model from D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\case--------
+2024-11-09 13:50:22,087:INFO: Model name 'D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\' not found in model shortcut name list (bert-base-uncased, bert-large-uncased, bert-base-cased, bert-large-cased, bert-base-multilingual-uncased, bert-base-multilingual-cased, bert-base-chinese, bert-base-german-cased, bert-large-uncased-whole-word-masking, bert-large-cased-whole-word-masking, bert-large-uncased-whole-word-masking-finetuned-squad, bert-large-cased-whole-word-masking-finetuned-squad, bert-base-cased-finetuned-mrpc, bert-base-german-dbmdz-cased, bert-base-german-dbmdz-uncased). Assuming 'D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\' is a path or url to a directory containing tokenizer files.
+2024-11-09 13:50:22,088:INFO: Didn't find file D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\added_tokens.json. We won't load it.
+2024-11-09 13:50:22,088:INFO: Didn't find file D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\special_tokens_map.json. We won't load it.
+2024-11-09 13:50:22,088:INFO: Didn't find file D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\tokenizer_config.json. We won't load it.
+2024-11-09 13:50:22,088:INFO: loading file D:\Exploitation\All\llm-kasmturny\model\bert-bilstm-crf\chinese_L-12_H-768_A-12\vocab.txt
+2024-11-09 13:50:22,088:INFO: loading file None
+2024-11-09 13:50:22,088:INFO: loading file None
+2024-11-09 13:50:22,088:INFO: loading file None
+2024-11-09 13:55:21,651:INFO: --------Bad Cases reserved !--------
+2024-11-09 13:55:21,722:INFO: test loss: 382.61139133998324, f1 score: 0.6275650842266463
+2024-11-09 13:55:21,722:INFO: f1 score of address: 0.4858638743455498
+2024-11-09 13:55:21,722:INFO: f1 score of book: 0.5481481481481482
+2024-11-09 13:55:21,722:INFO: f1 score of company: 0.6878048780487804
+2024-11-09 13:55:21,722:INFO: f1 score of game: 0.7516339869281047
+2024-11-09 13:55:21,722:INFO: f1 score of government: 0.6977611940298508
+2024-11-09 13:55:21,722:INFO: f1 score of movie: 0.7169811320754716
+2024-11-09 13:55:21,723:INFO: f1 score of name: 0.7745197168857431
+2024-11-09 13:55:21,723:INFO: f1 score of organization: 0.7081081081081081
+2024-11-09 13:55:21,723:INFO: f1 score of position: 0.5431818181818181
+2024-11-09 13:55:21,723:INFO: f1 score of scene: 0.22439024390243906
