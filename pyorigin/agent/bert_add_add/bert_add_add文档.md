@@ -33,7 +33,7 @@ os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 
 主要是transfromers==2.2.2的问题
 ```
-pip install transfromers==2.2.2
+pip install transformers==2.2.2
 ```
 然后在目录下面放入两个模型，一个是bert-base-chinese,一个是roberta-wwm-large,确保是全新的
 config.py的gpu改为cpu
