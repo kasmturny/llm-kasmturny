@@ -382,6 +382,9 @@ class Train_And_Test:
 
 
     def epoch_train(self,train_loader, model, optimizer, scheduler, device, epoch, kf_index=0):
+        """
+                一样的，首先要得到loss,然后loss.backward()计算梯度,然后利用optimizer.step()调整权重
+                """
         # set model to training mode
         model.train()
         # step number in one epoch: 336
