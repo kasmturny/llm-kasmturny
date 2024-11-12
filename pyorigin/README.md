@@ -11,6 +11,8 @@ pip install fastapi==0.115.4 uvicorn==0.32.0 streamlit==1.39.0
 pip install retry==0.9.2 tqdm==4.66.5
 
 pip install sentence_transformers==3.2.1 tensorflow==2.18.0 tf-keras==2.18 pytorch-crf==0.7.2 torch==2.5.1 transformers==4.46.2
+
+pip install torch swanlab modelscope transformers datasets peft accelerate pandas tiktoken
 ```
 ## 二、命令行
 ```
