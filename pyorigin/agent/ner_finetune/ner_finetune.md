@@ -3,7 +3,7 @@ https://github.com/Zeyi-Lin/LLM-Finetune
 
 二、这个只能在GPU上面跑
 
-三、依赖
+三、训练
 ```
 cd /
 conda create -p /kasmturny/venv
