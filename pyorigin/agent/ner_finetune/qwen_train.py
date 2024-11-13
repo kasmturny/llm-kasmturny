@@ -100,8 +100,8 @@ def predict(messages, model, tokenizer):
     return response
 
 
-model_id = "qwen/Qwen2-0.5B-Instruct"
-model_dir = "./qwen/Qwen2-0___5B-Instruct"
+model_id = "qwen/Qwen2-1.5B-Instruct"
+model_dir = "./qwen/Qwen2-1___5B-Instruct"
 
 # 在modelscope上下载Qwen模型到本地目录下
 model_dir = snapshot_download(model_id, cache_dir="./", revision="master")
@@ -151,8 +151,8 @@ args = TrainingArguments(
 
 swanlab_callback = SwanLabCallback(
     project="Qwen2-NER-fintune",
-    experiment_name="Qwen2-0.5B-Instruct",
-    description="使用通义千问Qwen2-0.5B-Instruct模型在NER数据集上微调，实现关键实体识别任务。",
+    experiment_name="Qwen2-1.5B-Instruct",
+    description="使用通义千问Qwen2-1.5B-Instruct模型在NER数据集上微调，实现关键实体识别任务。",
     config={
         "model": model_id,
         "model_dir": model_dir,
