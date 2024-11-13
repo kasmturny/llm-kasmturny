@@ -12,5 +12,6 @@ pip install torch swanlab modelscope transformers datasets peft accelerate panda
 cd ./kasmturny
 git clone https://github.com/kasmturny/llm-kasmturny.git
 cd ./llm-kasmturny/pyorigin/agent/ner_finetune
-python /kasmturny/llm-kasmturny/pyorigin/agent/ner_finetune/ner_finetune.py
+python /kasmturny/llm-kasmturny/pyorigin/agent/ner_finetune/qwen_train.py
+python /kasmturny/llm-kasmturny/pyorigin/agent/ner_finetune/glm_train.py
 ```
