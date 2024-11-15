@@ -540,7 +540,7 @@ class BertCrf:
 
 
 if __name__ == "__main__":
-    logo_util.set_logger(config.log_dir)
+    # logo_util.set_logger(config.log_dir)
     # """准备数据集"""
     # word_train, word_dev, label_train, label_dev = BertCrf().load_dev('train')
     # train_dataset = NERDataset(word_train, label_train, config)
