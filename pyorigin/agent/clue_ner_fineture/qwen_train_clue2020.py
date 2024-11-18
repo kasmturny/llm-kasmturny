@@ -271,8 +271,8 @@ def pre_labels_f(responses):
 
 if __name__ == '__main__':
 
-    model_id = "qwen/Qwen2-1.5B-Instruct"
-    model_dir = "./qwen/Qwen2-1___5B-Instruct"
+    model_id = "qwen/Qwen2.5-7B-Instruct"
+    model_dir = "./qwen/Qwen2.5-7B-Instruct"
 
     # 在modelscope上下载Qwen模型到本地目录下
     model_dir = snapshot_download(model_id, cache_dir="./", revision="master")
@@ -325,8 +325,8 @@ if __name__ == '__main__':
 
     swanlab_callback = SwanLabCallback(
         project="Qwen2-NER-fintune",
-        experiment_name="Qwen2-1.5B-Instruct-Clue2020",
-        description="使用通义千问Qwen2-1.5B-Instruct模型在NER数据集clue2020上微调，实现关键实体识别任务,并返回f1值。",
+        experiment_name="Qwen2.5-7B-Instruct-Clue2020",
+        description="使用通义千问Qwen2.5-7B-Instruct模型在NER数据集clue2020上微调，实现关键实体识别任务,并返回f1值。",
         config={
             "model": model_id,
             "model_dir": model_dir,
