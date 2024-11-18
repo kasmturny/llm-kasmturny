@@ -350,14 +350,11 @@ if __name__ == '__main__':
     if not os.path.exists(test_jsonl_new_path):
         dataset_jsonl_transfer(test_dataset_path, test_jsonl_new_path)
 
-
-
     test_total_df = pd.read_json(test_jsonl_new_path, lines=True)
     test_nums = len(test_total_df)       # 指定测试数量
     test_df = test_total_df[0:test_nums]
 
-    model = AutoModelForCausalLM.from_pretrained(model, device_map="auto",
-                                                 torch_dtype=torch.bfloat16)
+    model = AutoModelForCausalLM.from_pretrained('./output/Qwen2-NER/checkpoint-1342', device_map="auto",torch_dtype=torch.bfloat16)
 
     responses = []
     test_text_list = []
