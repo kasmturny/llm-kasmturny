@@ -11,5 +11,5 @@ pip install torch swanlab modelscope transformers datasets peft accelerate panda
 cd ./kasmturny
 git clone https://github.com/kasmturny/llm-kasmturny.git
 cd ./llm-kasmturny/pyorigin/agent/clue_ner_fineture
-python /kasmturny/llm-kasmturny/pyorigin/agent/clue_ner_finetune/qwen_train_clue2020.py
+python /kasmturny/llm-kasmturny/pyorigin/agent/clue_ner_fineture/qwen_train_clue2020.py
 ```
