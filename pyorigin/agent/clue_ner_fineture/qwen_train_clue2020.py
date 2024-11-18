@@ -286,14 +286,15 @@ if __name__ == '__main__':
     # train_dataset_path = "ccfbdci.jsonl"
     # train_jsonl_new_path = "ccf_train.jsonl"
     train_dataset_path = "./data/train.json"
-    train_jsonl_new_path = "./data/train_new_new.jsonl"
+    train_jsonl_new_path = "./data/train_new.jsonl"
 
     if not os.path.exists(train_jsonl_new_path):
         dataset_jsonl_transfer(train_dataset_path, train_jsonl_new_path)
 
     # 得到训练集
     train_total_df = pd.read_json(train_jsonl_new_path, lines=True)
-    train_df = train_total_df[int(len(train_total_df) * 0.1):]
+    train_nums = len(train_total_df)
+    train_df = train_total_df[0:train_nums]
     train_ds = Dataset.from_pandas(train_df)
     train_dataset = train_ds.map(process_func, remove_columns=train_ds.column_names)
 
@@ -341,20 +342,21 @@ if __name__ == '__main__':
         callbacks=[swanlab_callback],
     )
 
-    # trainer.train()
+    trainer.train()
 
     test_dataset_path = "./data/test.json"
-    test_jsonl_new_path = "./data/test_new_new.jsonl"
+    test_jsonl_new_path = "./data/test_new.jsonl"
 
     if not os.path.exists(test_jsonl_new_path):
         dataset_jsonl_transfer(test_dataset_path, test_jsonl_new_path)
 
-    test_nums = 20  # 指定测试数量
+
 
     test_total_df = pd.read_json(test_jsonl_new_path, lines=True)
+    test_nums = len(test_total_df)       # 指定测试数量
     test_df = test_total_df[0:test_nums]
 
-    model = AutoModelForCausalLM.from_pretrained('./output/Qwen2-NER/checkpoint-1208/', device_map="auto",
+    model = AutoModelForCausalLM.from_pretrained(model, device_map="auto",
                                                  torch_dtype=torch.bfloat16)
 
     responses = []
@@ -375,7 +377,7 @@ if __name__ == '__main__':
         messages.append({"role": "assistant", "content": f"{response}"})
         result_text = f"{messages[0]}\n\n{messages[1]}\n\n{messages[2]}"
         test_text_list.append(swanlab.Text(result_text, caption=response))
-    pre_labels = pre_labels(responses)
+    pre_labels = pre_labels_f(responses)
     ture_labels = ture_labels_f(test_nums)
     print(f1_score(pre_labels, ture_labels))
     swanlab.log({"Prediction": test_text_list})
