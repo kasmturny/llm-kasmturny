@@ -1,3 +1,4 @@
+import ast
 import json
 
 import numpy as np
@@ -296,117 +297,141 @@ def f1_score(y_true, y_pred, mode='test'):
         return f_score, score
 
 
-model_id = "qwen/Qwen2-1.5B-Instruct"
-model_dir = "./qwen/Qwen2-1___5B-Instruct"
+if __name__ == '__main__':
 
-# 在modelscope上下载Qwen模型到本地目录下
-model_dir = snapshot_download(model_id, cache_dir="./", revision="master")
+    model_id = "qwen/Qwen2-1.5B-Instruct"
+    model_dir = "./qwen/Qwen2-1___5B-Instruct"
 
-# Transformers加载模型权重
-tokenizer = AutoTokenizer.from_pretrained(model_dir, use_fast=False, trust_remote_code=True)
-model = AutoModelForCausalLM.from_pretrained(model_dir, device_map="auto", torch_dtype=torch.bfloat16)
-model.enable_input_require_grads()  # 开启梯度检查点时，要执行该方法
+    # 在modelscope上下载Qwen模型到本地目录下
+    model_dir = snapshot_download(model_id, cache_dir="./", revision="master")
 
-# 加载、处理数据集和测试集
-train_dataset_path = "./data/train.npz"
-train_jsonl_new_path = "./data/train.jsonl"
+    # Transformers加载模型权重
+    tokenizer = AutoTokenizer.from_pretrained(model_dir, use_fast=False, trust_remote_code=True)
+    model = AutoModelForCausalLM.from_pretrained(model_dir, device_map="auto", torch_dtype=torch.bfloat16)
+    model.enable_input_require_grads()  # 开启梯度检查点时，要执行该方法
 
-if not os.path.exists(train_jsonl_new_path):
-    dataset_jsonl_transfer(train_dataset_path, train_jsonl_new_path)
+    # 加载、处理数据集和测试集
+    train_dataset_path = "./data/train.npz"
+    train_jsonl_new_path = "./data/train.jsonl"
 
-# 得到训练集
-train_total_df = pd.read_json(train_jsonl_new_path, lines=True)
-train_total_df_len = len(train_total_df)
-train_df = train_total_df[0:train_total_df_len]
-train_ds = Dataset.from_pandas(train_df)
-train_dataset = train_ds.map(process_func, remove_columns=train_ds.column_names)
+    if not os.path.exists(train_jsonl_new_path):
+        dataset_jsonl_transfer(train_dataset_path, train_jsonl_new_path)
 
-config = LoraConfig(
-    task_type=TaskType.CAUSAL_LM,
-    target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
-    inference_mode=False,  # 训练模式
-    r=8,  # Lora 秩
-    lora_alpha=32,  # Lora alaph，具体作用参见 Lora 原理
-    lora_dropout=0.1,  # Dropout 比例
-)
+    # 得到训练集
+    train_total_df = pd.read_json(train_jsonl_new_path, lines=True)
+    train_total_df_len = len(train_total_df)
+    train_df = train_total_df[0:train_total_df_len]
+    train_ds = Dataset.from_pandas(train_df)
+    train_dataset = train_ds.map(process_func, remove_columns=train_ds.column_names)
 
-model = get_peft_model(model, config)
+    config = LoraConfig(
+        task_type=TaskType.CAUSAL_LM,
+        target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
+        inference_mode=False,  # 训练模式
+        r=8,  # Lora 秩
+        lora_alpha=32,  # Lora alaph，具体作用参见 Lora 原理
+        lora_dropout=0.1,  # Dropout 比例
+    )
 
-args = TrainingArguments(
-    output_dir="./output/Qwen2-NER",
-    per_device_train_batch_size=4,
-    per_device_eval_batch_size=4,
-    gradient_accumulation_steps=4,
-    logging_steps=10,
-    num_train_epochs=2,
-    save_steps=100,
-    learning_rate=1e-4,
-    save_on_each_node=True,
-    gradient_checkpointing=True,
-    report_to="none",
-)
+    model = get_peft_model(model, config)
 
-swanlab_callback = SwanLabCallback(
-    project="Qwen2-NER-fintune",
-    experiment_name="Qwen2-0.5B-Instruct",
-    description="使用通义千问Qwen2-0.5B-Instruct模型在NER数据集上微调，实现关键实体识别任务,并计算f1值",
-    config={
-        "model": model_id,
-        "model_dir": model_dir,
-        "dataset": "qgyd2021/chinese_ner_sft",
-    },
-)
+    args = TrainingArguments(
+        output_dir="./output/Qwen2-NER",
+        per_device_train_batch_size=4,
+        per_device_eval_batch_size=4,
+        gradient_accumulation_steps=4,
+        logging_steps=10,
+        num_train_epochs=2,
+        save_steps=100,
+        learning_rate=1e-4,
+        save_on_each_node=True,
+        gradient_checkpointing=True,
+        report_to="none",
+    )
 
-trainer = Trainer(
-    model=model,
-    args=args,
-    train_dataset=train_dataset,
-    data_collator=DataCollatorForSeq2Seq(tokenizer=tokenizer, padding=True),
-    callbacks=[swanlab_callback],
-)
+    swanlab_callback = SwanLabCallback(
+        project="Qwen2-NER-fintune",
+        experiment_name="Qwen2-0.5B-Instruct",
+        description="使用通义千问Qwen2-0.5B-Instruct模型在NER数据集上微调，实现关键实体识别任务,并计算f1值",
+        config={
+            "model": model_id,
+            "model_dir": model_dir,
+            "dataset": "qgyd2021/chinese_ner_sft",
+        },
+    )
 
-trainer.train()
+    trainer = Trainer(
+        model=model,
+        args=args,
+        train_dataset=train_dataset,
+        data_collator=DataCollatorForSeq2Seq(tokenizer=tokenizer, padding=True),
+        callbacks=[swanlab_callback],
+    )
 
+    trainer.train()
 
+    # 得到测试集
+    test_dataset_path = "./data/test.npz"
+    test_jsonl_new_path = "./data/test.jsonl"
 
+    if not os.path.exists(test_jsonl_new_path):
+        dataset_jsonl_transfer(test_dataset_path, test_jsonl_new_path)
+    test_total_df = pd.read_json(test_jsonl_new_path, lines=True)
+    test_total_df_len = len(test_total_df)
+    test_df = test_total_df[0:test_total_df_len]
 
-# 得到测试集
-test_dataset_path = "./data/test.npz"
-test_jsonl_new_path = "./data/test.jsonl"
+    # 加载检查点模型
+    model = AutoModelForCausalLM.from_pretrained('./output/Qwen2-NER/checkpoint-1342', device_map="auto",
+                                                 torch_dtype=torch.bfloat16)
 
-if not os.path.exists(test_jsonl_new_path):
-    dataset_jsonl_transfer(test_dataset_path, test_jsonl_new_path)
-test_total_df = pd.read_json(test_jsonl_new_path, lines=True)
-test_total_df_len = len(test_total_df)
-test_df = test_total_df[0:test_total_df_len]
+    responses = []
+    test_text_list = []
+    for index, row in test_df.iterrows():
 
-# 加载检查点模型
-model = AutoModelForCausalLM.from_pretrained('./output/Qwen2-NER/checkpoint-1342', device_map="auto", torch_dtype=torch.bfloat16)
+        instruction = row['instruction']
+        input_value = row['input']
+        ture_label = row['output']
 
-responses = []
-test_text_list = []
-for index, row in test_df.iterrows():
-    instruction = row['instruction']
-    input_value = row['input']
+        messages = [
+            {"role": "system", "content": f"{instruction}"},
+            {"role": "user", "content": f"{input_value}"}
+        ]
 
-    messages = [
-        {"role": "system", "content": f"{instruction}"},
-        {"role": "user", "content": f"{input_value}"}
-    ]
+        response = predict(messages, model, tokenizer)
+        responses.append({
+            "instruction": instruction,
+            "input": input_value,
+            "true_label": ture_label,
+            "output": response
+        })
+        messages.append({"role": "assistant", "content": f"{response}"})
+        result_text = f"{messages[0]}\n\n{messages[1]}\n\n{ture_label}\n\n{messages[2]}"
+        test_text_list.append(swanlab.Text(result_text, caption=response))
 
-    response = predict(messages, model, tokenizer)
-    responses.append({
-        "instruction": instruction,
-        "input": input_value,
-        "output": response
-    })
-    messages.append({"role": "assistant", "content": f"{response}"})
-    result_text = f"{messages[0]}\n\n{messages[1]}\n\n{messages[2]}"
-    test_text_list.append(swanlab.Text(result_text, caption=response))
+    # 计算f1值
+    import pickle
 
-import pickle
-with open('my_variable.pkl', 'wb') as file:
-    pickle.dump(responses, file)
+    with open('my_variable.pkl', 'wb') as file:
+        pickle.dump(responses, file)
+    with open('my_variable.pkl', 'rb') as f:
+        a = pickle.load(f)
+        data = np.load('./data/test.npz', allow_pickle=True)
+        words = data['words']
+        labels = data['labels']
+        pre_labels = []
+        tru_labels = []
+        for i in range(len(a)):
+            tru_label = labels[i]
+            pre_label = []
+            d = ast.literal_eval(json.loads(a[i]['output'])['output_list'])
+            for j in range(len(d)):
+                pre_label.append(d[j][2])
+            pre_labels.append(pre_label)
+            tru_labels.append(tru_label)
+        e = str(f1_score(tru_labels, pre_labels, mode='test'))
+        print(e)
+        e = swanlab.Text(e, caption="F1")
 
-swanlab.log({"Prediction": test_text_list})
-swanlab.finish()
+    swanlab.log({"F1": e})
+    swanlab.log({"Prediction": test_text_list})
+    swanlab.finish()
