@@ -75,7 +75,7 @@ def process_func(example):
     将数据集进行预处理, 处理成模型可以接受的格式
     """
 
-    MAX_LENGTH = 3840
+    MAX_LENGTH = 384*5
     input_ids, attention_mask, labels = [], [], []
     system_prompt = """Role:
     你是一个命名实体识别的专家，可以很好的识别文本中的实体信息，实体信息有十类：地址、书籍、公司、游戏、政府、电影、名称、组织、职位、场景
