@@ -381,8 +381,7 @@ if __name__ == '__main__':
     test_df = test_total_df[0:test_total_df_len]
 
     # 加载检查点模型
-    model = AutoModelForCausalLM.from_pretrained('./output/Qwen2-NER/checkpoint-1342', device_map="auto",
-                                                 torch_dtype=torch.bfloat16)
+    # model = AutoModelForCausalLM.from_pretrained('./output/Qwen2-NER/checkpoint-1342', device_map="auto", torch_dtype=torch.bfloat16)
 
     responses = []
     test_text_list = []
