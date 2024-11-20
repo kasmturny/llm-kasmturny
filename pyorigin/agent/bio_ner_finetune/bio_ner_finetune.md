@@ -10,3 +10,4 @@ cd ./llm-kasmturny/pyorigin/agent/bio_ner_finetune
 python /hy-tmp/llm-kasmturny/pyorigin/agent/bio_ner_finetune/bio_qwen_train.py
 ```
 二、运行时间：10+小时
+三、需要多卡就把环境变量的注释取消掉
