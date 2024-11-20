@@ -13,3 +13,4 @@ git clone https://github.com/kasmturny/llm-kasmturny.git
 cd ./llm-kasmturny/pyorigin/agent/clue_ner_fineture
 python /kasmturny/llm-kasmturny/pyorigin/agent/clue_ner_finetune/qwen_train_clue2020.py
 ```
+三、这个训练出来随机测试的f1值效果贼差
