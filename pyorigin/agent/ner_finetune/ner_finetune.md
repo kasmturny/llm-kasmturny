@@ -6,12 +6,12 @@ https://github.com/Zeyi-Lin/LLM-Finetune
 三、训练
 ```
 cd /
-conda create -p /kasmturny/venv
-conda activate /kasmturny/venv
+conda create -p /hy-tmp/venv
+conda activate /hy-tmp/venv
 pip install torch swanlab modelscope transformers datasets peft accelerate pandas tiktoken
-cd ./kasmturny
+cd ./hy-tmp
 git clone https://github.com/kasmturny/llm-kasmturny.git
 cd ./llm-kasmturny/pyorigin/agent/ner_finetune
-python /kasmturny/llm-kasmturny/pyorigin/agent/ner_finetune/qwen_train.py
-python /kasmturny/llm-kasmturny/pyorigin/agent/ner_finetune/glm_train.py
+python /hy-tmp/llm-kasmturny/pyorigin/agent/ner_finetune/qwen_train.py
+python /hy-tmp/llm-kasmturny/pyorigin/agent/ner_finetune/glm_train.py
 ```
