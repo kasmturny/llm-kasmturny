@@ -385,7 +385,7 @@ if __name__ == '__main__':
 
     responses = []
     test_text_list = []
-    for index, row in test_df.iterrows():
+    for index, row in tqdm(test_df.iterrows(), total=test_df.shape[0]):
 
         instruction = row['instruction']
         input_value = row['input']
