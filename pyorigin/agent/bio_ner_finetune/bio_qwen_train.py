@@ -1,3 +1,7 @@
+# import os
+# os.environ['NCCL_P2P_DISABLE'] = '1'
+# os.environ['NCCL_IB_DISABLE'] = '1'
+# 多卡需要的环境变量
 import ast
 import json
 
