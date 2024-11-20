@@ -1,13 +1,13 @@
 一、命令行
 ```
 cd /
-conda create -p /hy-tmp/venv
-conda activate /hy-tmp/venv
+conda create -p /kasmturny/venv
+conda activate /kasmturny/venv
 pip install torch swanlab modelscope transformers datasets peft accelerate pandas tiktoken tqdm
-cd ./hy-tmp
+cd ./kasmturny
 git clone https://github.com/kasmturny/llm-kasmturny.git
 cd ./llm-kasmturny/pyorigin/agent/bio_ner_finetune
-python /hy-tmp/llm-kasmturny/pyorigin/agent/bio_ner_finetune/bio_qwen_train.py
+python /kasmturny/llm-kasmturny/pyorigin/agent/bio_ner_finetune/bio_qwen_train.py
 ```
 二、运行时间：10+小时
 三、需要多卡就把环境变量的注释取消掉
