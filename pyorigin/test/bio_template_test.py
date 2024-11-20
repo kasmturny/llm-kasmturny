@@ -5,6 +5,8 @@ def bio_template_test():
     from tqdm import tqdm
 
     from pyorigin.core.base_agent import BigModel
+    import time
+    start = time.time()
     data = np.load('D:\\Exploitation\\All\\llm-kasmturny\\pyorigin\\agent\\bio_ner_finetune\\data\\test.npz',
                    allow_pickle=True)
     input_list = []
@@ -19,6 +21,8 @@ def bio_template_test():
         for j in range(len(word)):
             input_list[i].append([word[j], j])
             output_list[i].append([word[j], j, label[j]])
+    end = time.time()
+    print(end - start)
 
     model = BigModel()
     output = model.str_output_invoke(
@@ -68,6 +72,6 @@ def tqdm_test():
         print(index)
 
 if __name__ == '__main__':
-    # bio_template_test()
+    bio_template_test()
     # tqdm_test()
     print('test')
