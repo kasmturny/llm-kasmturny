@@ -22,7 +22,7 @@ def dataset_jsonl_transfer(origin_path, new_path):
 
     data = np.load(origin_path, allow_pickle=True)
     data_len = len(data['words'])
-
+    print('*******************************            数据转化中             ***********************************')
     for i in tqdm(range(data_len)):
         word = data['words'][i]
         label = data['labels'][i]
@@ -322,6 +322,8 @@ if __name__ == '__main__':
     train_total_df_len = len(train_total_df)
     train_df = train_total_df[0:train_total_df_len]
     train_ds = Dataset.from_pandas(train_df)
+    """初始化训练数据"""
+    print("*****************************                   初始化训练数据                   *****************************")
     train_dataset = train_ds.map(process_func, remove_columns=train_ds.column_names)
 
     config = LoraConfig(
@@ -386,6 +388,9 @@ if __name__ == '__main__':
     responses = []
     test_text_list = []
     for index, row in tqdm(test_df.iterrows(), total=test_df.shape[0]):
+
+        print('\n')
+        print(f"***********************模型预测中，进度·················{index}/{test_df.shape[0]}         ***********************")
 
         instruction = row['instruction']
         input_value = row['input']
