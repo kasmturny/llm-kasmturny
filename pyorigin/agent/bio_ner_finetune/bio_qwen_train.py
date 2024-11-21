@@ -357,8 +357,8 @@ if __name__ == '__main__':
 
     swanlab_callback = SwanLabCallback(
         project="Qwen2-NER-fintune",
-        experiment_name="Qwen2-0.5B-Instruct",
-        description="使用通义千问Qwen2-0.5B-Instruct模型在NER数据集上微调，实现关键实体识别任务,并计算f1值",
+        experiment_name="Qwen2-1.5B-Instruct",
+        description="使用通义千问Qwen2-1.5B-Instruct模型在NER数据集上微调，实现关键实体识别任务,是序列标注任务,并计算f1值",
         config={
             "model": model_id,
             "model_dir": model_dir,
