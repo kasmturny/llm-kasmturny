@@ -429,13 +429,17 @@ if __name__ == '__main__':
         pre_labels = []
         tru_labels = []
         for i in range(len(a)):
-            tru_label = labels[i]
-            pre_label = []
-            d = ast.literal_eval(json.loads(a[i]['output'])['output_list'])
-            for j in range(len(d)):
-                pre_label.append(d[j][2])
-            pre_labels.append(pre_label)
-            tru_labels.append(tru_label)
+            try:
+                tru_label = labels[i]
+                pre_label = []
+                d = ast.literal_eval(json.loads(a[i]['output'])['output_list'])
+                for j in range(len(d)):
+                    pre_label.append(d[j][2])
+                pre_labels.append(pre_label)
+                tru_labels.append(tru_label)
+            except Exception as e:
+                print(f"A error occurred: {e},index:{i}")
+
         e = str(f1_score(tru_labels, pre_labels, mode='test'))
         print(e)
         e = swanlab.Text(e, caption="F1")

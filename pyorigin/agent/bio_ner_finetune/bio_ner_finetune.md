@@ -9,5 +9,8 @@ git clone https://github.com/kasmturny/llm-kasmturny.git
 cd ./llm-kasmturny/pyorigin/agent/bio_ner_finetune
 python /kasmturny/llm-kasmturny/pyorigin/agent/bio_ner_finetune/bio_qwen_train.py
 ```
-二、运行时间：10+小时
+二、运行时间：24+小时
+```
+反正，f1值极差，看来又要重新设计了
+```
 三、需要多卡就把环境变量的注释取消掉
