@@ -35,7 +35,7 @@ def dataset_jsonl_transfer(origin_path, new_path):
                 output['entities'] = entities
                 output = json.dumps(output, ensure_ascii=False)
 
-                instruction = """你是一个命名实体识别的专家，请对文本中的 地址（address）、书籍（book）、公司（company）、游戏（game）、政府（government）、电影（movie）、名称（name）、组织（organization）、职位（position）、场景（scene） 这十个实体进行识别，并返回识别结果。例如输入input:"浙商银行企业信贷部叶老桂博士则从另一个角度对五道门槛进行了解读。叶老桂认为，对目前国内商业银行而言，"，那么输出output:"{"entities":[{"entity_text": "叶老桂","entity_type": "name"},{"entity_text": "浙商银行","entity_type": "company"}]}"。 1、注意输出一定要是json格式的字符串. 2、entity_text的值必须是原文中的连续的文本，不能随意截取拼接原文中的文本. 3、entity_type的值必须是这十个实体类型中的一个，不能随意添加其他实体类型."""
+                instruction = """你是一个命名实体识别的专家，请对文本中的 地址（address）、书籍（book）、公司（company）、游戏（game）、政府（government）、电影（movie）、名称（name）、组织（organization）、职位（position）、场景（scene） 这十个实体进行识别，对识别到的实体选取输入原文中连续的字符文本进行表示，并确定实体类型，输出json表示的识别结果。例如输入input:"浙商银行企业信贷部叶老桂博士则从另一个角度对五道门槛进行了解读。叶老桂认为，对目前国内商业银行而言，"，那么输出output:"{"entities":[{"entity_text": "叶老桂","entity_type": "name"},{"entity_text": "浙商银行","entity_type": "company"}]}"。 1、注意输出一定要是json格式的字符串. 2、entity_text的值必须是原文中的连续的文本，不能随意截取拼接原文中的文本. 3、entity_type的值必须是这十个实体类型中的一个，不能随意添加其他实体类型."""
                 message = {
                     "instruction": instruction,
                     "input": input_text,
@@ -58,7 +58,7 @@ def process_func(example):
 
     MAX_LENGTH = 384
     input_ids, attention_mask, labels = [], [], []
-    system_prompt = """你是一个命名实体识别的专家，请对文本中的 地址（address）、书籍（book）、公司（company）、游戏（game）、政府（government）、电影（movie）、名称（name）、组织（organization）、职位（position）、场景（scene） 这十个实体进行识别，并返回识别结果。例如输入input:"浙商银行企业信贷部叶老桂博士则从另一个角度对五道门槛进行了解读。叶老桂认为，对目前国内商业银行而言，"，那么输出output:"{"entities":[{"entity_text": "叶老桂","entity_type": "name"},{"entity_text": "浙商银行","entity_type": "company"}]}"。 1、注意输出一定要是json格式的字符串. 2、entity_text的值必须是原文中的连续的文本，不能随意截取拼接原文中的文本. 3、entity_type的值必须是这十个实体类型中的一个，不能随意添加其他实体类型."""
+    system_prompt = """你是一个命名实体识别的专家，请对文本中的 地址（address）、书籍（book）、公司（company）、游戏（game）、政府（government）、电影（movie）、名称（name）、组织（organization）、职位（position）、场景（scene） 这十个实体进行识别，对识别到的实体选取输入原文中连续的字符文本进行表示，并确定实体类型，输出json表示的识别结果。例如输入input:"浙商银行企业信贷部叶老桂博士则从另一个角度对五道门槛进行了解读。叶老桂认为，对目前国内商业银行而言，"，那么输出output:"{"entities":[{"entity_text": "叶老桂","entity_type": "name"},{"entity_text": "浙商银行","entity_type": "company"}]}"。 1、注意输出一定要是json格式的字符串. 2、entity_text的值必须是原文中的连续的文本，不能随意截取拼接原文中的文本. 3、entity_type的值必须是这十个实体类型中的一个，不能随意添加其他实体类型."""
     instruction = tokenizer(
         f"<|im_start|>system\n{system_prompt}<|im_end|>\n<|im_start|>user\n{example['input']}<|im_end|>\n<|im_start|>assistant\n",
         add_special_tokens=False,
