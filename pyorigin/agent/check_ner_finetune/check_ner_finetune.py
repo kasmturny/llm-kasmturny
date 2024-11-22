@@ -35,7 +35,10 @@ def dataset_jsonl_transfer(origin_path, new_path):
                 output['entities'] = entities
                 output = json.dumps(output, ensure_ascii=False)
 
-                instruction = """你是一个命名实体识别的专家，请对文本中的 地址（address）、书籍（book）、公司（company）、游戏（game）、政府（government）、电影（movie）、名称（name）、组织（organization）、职位（position）、场景（scene） 这十个实体进行识别，对识别到的实体选取输入原文中连续的字符文本进行表示，并确定实体类型，输出json表示的识别结果。例如输入input:"浙商银行企业信贷部叶老桂博士则从另一个角度对五道门槛进行了解读。叶老桂认为，对目前国内商业银行而言，"，那么输出output:"{"entities":[{"entity_text": "叶老桂","entity_type": "name"},{"entity_text": "浙商银行","entity_type": "company"}]}"。 1、注意输出一定要是json格式的字符串. 2、entity_text的值必须是原文中的连续的文本，不能随意截取拼接原文中的文本,也不要进行原文文本的补全和标点符号的补全. 3、entity_type的值必须是这十个实体类型中的一个，不能随意添加其他实体类型."""
+                instruction = """Role:你是一个命名实体识别的专家，你十分擅长对自然语言的地址（address）、书籍（book）、公司（company）、游戏（game）、政府（government）、电影（movie）、名称（name）、组织（organization）、职位（position）、场景（scene）这十个实体进行识别。
+                Workflow:第一步，对输入原文进行仔细分析，分别找出上述十类命名实体，如果没有，就跳过。第二步，找到实体之后，在输入原文中找到实体所代表的连续的字符文本。第三步，将找到的实体文本和实体类型组成一个字典，将所有实体组成的字典列表作为输出。
+                Example:input:"浙商银行企业信贷部叶老桂博士则从另一个角度对五道门槛进行了解读。叶老桂认为，对目前国内商业银行而言，"，output:"{"entities":[{"entity_text": "叶老桂","entity_type": "name"},{"entity_text": "浙商银行","entity_type": "company"}]}"。 
+                Constraints:1、注意输出一定要是json格式的字符串. 2、entity_text的值必须是原文中的连续的文本，不能随意截取拼接原文中的文本,也不要进行原文文本的补全和标点符号的补全,例如原文只有"小丑》"你不能补全为"《小丑》". 3、entity_type的值必须是这十个实体类型中的一个，不能随意添加其他实体类型."""
                 message = {
                     "instruction": instruction,
                     "input": input_text,
@@ -51,29 +54,40 @@ def dataset_jsonl_transfer(origin_path, new_path):
         for message in messages:
             file.write(json.dumps(message, ensure_ascii=False) + "\n")
 
-def process_func(example):
-    """
-    将数据集进行预处理, 处理成模型可以接受的格式
-    """
+class ProcessFunc():
+    def __init__(self):
+        self.max_length = 0
 
-    MAX_LENGTH = 384*2
-    input_ids, attention_mask, labels = [], [], []
-    system_prompt = """你是一个命名实体识别的专家，请对文本中的 地址（address）、书籍（book）、公司（company）、游戏（game）、政府（government）、电影（movie）、名称（name）、组织（organization）、职位（position）、场景（scene） 这十个实体进行识别，对识别到的实体选取输入原文中连续的字符文本进行表示，并确定实体类型，输出json表示的识别结果。例如输入input:"浙商银行企业信贷部叶老桂博士则从另一个角度对五道门槛进行了解读。叶老桂认为，对目前国内商业银行而言，"，那么输出output:"{"entities":[{"entity_text": "叶老桂","entity_type": "name"},{"entity_text": "浙商银行","entity_type": "company"}]}"。 1、注意输出一定要是json格式的字符串. 2、entity_text的值必须是原文中的连续的文本，不能随意截取拼接原文中的文本,也不要进行原文文本的补全和标点符号的补全. 3、entity_type的值必须是这十个实体类型中的一个，不能随意添加其他实体类型."""
-    instruction = tokenizer(
-        f"<|im_start|>system\n{system_prompt}<|im_end|>\n<|im_start|>user\n{example['input']}<|im_end|>\n<|im_start|>assistant\n",
-        add_special_tokens=False,
-    )
-    response = tokenizer(f"{example['output']}", add_special_tokens=False)
-    input_ids = instruction["input_ids"] + response["input_ids"] + [tokenizer.pad_token_id]
-    attention_mask = (
-            instruction["attention_mask"] + response["attention_mask"] + [1]
-    )
-    labels = [-100] * len(instruction["input_ids"]) + response["input_ids"] + [tokenizer.pad_token_id]
-    if len(input_ids) > MAX_LENGTH:  # 做一个截断
-        input_ids = input_ids[:MAX_LENGTH]
-        attention_mask = attention_mask[:MAX_LENGTH]
-        labels = labels[:MAX_LENGTH]
-    return {"input_ids": input_ids, "attention_mask": attention_mask, "labels": labels}
+    def process_func(self,example):
+        """
+        将数据集进行预处理, 处理成模型可以接受的格式
+        """
+
+        MAX_LENGTH = 384*2
+        input_ids, attention_mask, labels = [], [], []
+        system_prompt = """Role:你是一个命名实体识别的专家，你十分擅长对自然语言的地址（address）、书籍（book）、公司（company）、游戏（game）、政府（government）、电影（movie）、名称（name）、组织（organization）、职位（position）、场景（scene）这十个实体进行识别。
+        Workflow:第一步，对输入原文进行仔细分析，分别找出上述十类命名实体，如果没有，就跳过。第二步，找到实体之后，在输入原文中找到实体所代表的连续的字符文本。第三步，将找到的实体文本和实体类型组成一个字典，将所有实体组成的字典列表作为输出。
+        Example:input:"浙商银行企业信贷部叶老桂博士则从另一个角度对五道门槛进行了解读。叶老桂认为，对目前国内商业银行而言，"，output:"{"entities":[{"entity_text": "叶老桂","entity_type": "name"},{"entity_text": "浙商银行","entity_type": "company"}]}"。 
+        Constraints:1、注意输出一定要是json格式的字符串. 2、entity_text的值必须是原文中的连续的文本，不能随意截取拼接原文中的文本,也不要进行原文文本的补全和标点符号的补全,例如原文只有"小丑》"你不能补全为"《小丑》". 3、entity_type的值必须是这十个实体类型中的一个，不能随意添加其他实体类型."""
+        instruction = tokenizer(
+            f"<|im_start|>system\n{system_prompt}<|im_end|>\n<|im_start|>user\n{example['input']}<|im_end|>\n<|im_start|>assistant\n",
+            add_special_tokens=False,
+        )
+        response = tokenizer(f"{example['output']}", add_special_tokens=False)
+        input_ids = instruction["input_ids"] + response["input_ids"] + [tokenizer.pad_token_id]
+        attention_mask = (
+                instruction["attention_mask"] + response["attention_mask"] + [1]
+        )
+        labels = [-100] * len(instruction["input_ids"]) + response["input_ids"] + [tokenizer.pad_token_id]
+
+        if len(input_ids) > self.max_length:
+            self.max_length = len(input_ids)
+
+        if len(input_ids) > MAX_LENGTH:  # 做一个截断
+            input_ids = input_ids[:MAX_LENGTH]
+            attention_mask = attention_mask[:MAX_LENGTH]
+            labels = labels[:MAX_LENGTH]
+        return {"input_ids": input_ids, "attention_mask": attention_mask, "labels": labels}
 
 def predict(messages, model, tokenizer):
     device = "cuda"
@@ -276,59 +290,71 @@ def output_data_bio(llm_output,origin_text):
                 BIO_list[i] = 'O'
     return BIO_list
 
-def llm_output_check(llm_output, origin_text,
-                     entity_types=['address', 'book', 'company', 'game', 'government', 'movie', 'name', 'organization', 'position', 'scene'])-> bool:
-    """
-    检查LLM输出是否符合要求
-    :param llm_output:
-    :param origin_text:
-    :param entity_types:
-    :return:
-    """
-    try:
-        # 尝试将输出解析为JSON
-        data = json.loads(llm_output)
+class Check():
+    def __init__(self):
+        self.check_error = None
 
-        # 检查是否只有一个字段"entities"，并且其值是列表
-        if not isinstance(data, dict) or set(data.keys()) != {"entities"} or not isinstance(data["entities"], list):
-            print("错误：输出必须只包含一个字段'entities'，其值为列表。")
+    def llm_output_check(self,llm_output, origin_text,
+                         entity_types=['address', 'book', 'company', 'game', 'government', 'movie', 'name',
+                                       'organization', 'position', 'scene']) -> bool:
+        """
+        检查LLM输出是否符合要求
+        :param llm_output:
+        :param origin_text:
+        :param entity_types:
+        :return:
+        """
+        try:
+            self.check_error = None
+            # 尝试将输出解析为JSON
+            data = json.loads(llm_output)
+
+            # 检查是否只有一个字段"entities"，并且其值是列表
+            if not isinstance(data, dict) or set(data.keys()) != {"entities"} or not isinstance(data["entities"], list):
+                self.check_error = "错误：输出必须只包含一个字段'entities'，其值为列表。请重新输出"
+                print(self.check_error)
+                return False
+
+            # 遍历列表中的每个元素
+            for entity in data["entities"]:
+                # 检查每个元素是否是字典，并且只有"entity_type"和"entity_text"两个键
+                if not isinstance(entity, dict) or set(entity.keys()) != {"entity_type", "entity_text"}:
+                    self.check_error = "错误：'entities'中的每个元素必须是只包含'entity_type'和'entity_text'键的字典。请重新输出"
+                    print(self.check_error)
+                    return False
+
+                # 检查"entity_type"和"entity_text"的值是否为字符串
+                if not isinstance(entity["entity_type"], str) or not isinstance(entity["entity_text"], str):
+                    self.check_error = "错误：'entity_type'和'entity_text'必须为字符串。请重新输出"
+                    print(self.check_error)
+                    return False
+
+                # 检查"entity_type"的值是否在有效的实体类型列表中
+                if entity["entity_type"] not in entity_types:
+                    self.check_error = f"错误：'entity_type' '{entity['entity_type']}'不在有效的实体类型列表中。请重新输出"
+                    print(self.check_error)
+                    return False
+
+                # 检查"entity_text"的值是否在原文中连续出现
+                if entity["entity_text"] not in origin_text:
+                    self.check_error = f"错误：'entity_text' '{entity['entity_text']}'不是原文中的连续文本。请重新输出"
+                    print(self.check_error)
+                    return False
+
+            # 如果所有检查都通过，打印成功消息并返回True
+            return True
+
+        except json.JSONDecodeError as e:
+            # 如果输出不是有效的JSON，打印错误并返回False
+            self.check_error = f"错误：输出不是有效的JSON。{e}"
+            print(self.check_error)
             return False
-
-        # 遍历列表中的每个元素
-        for entity in data["entities"]:
-            # 检查每个元素是否是字典，并且只有"entity_type"和"entity_text"两个键
-            if not isinstance(entity, dict) or set(entity.keys()) != {"entity_type", "entity_text"}:
-                print("错误：'entities'中的每个元素必须是只包含'entity_type'和'entity_text'键的字典。")
-                return False
-
-            # 检查"entity_type"和"entity_text"的值是否为字符串
-            if not isinstance(entity["entity_type"], str) or not isinstance(entity["entity_text"], str):
-                print("错误：'entity_type'和'entity_text'必须为字符串。")
-                return False
-
-            # 检查"entity_type"的值是否在有效的实体类型列表中
-            if entity["entity_type"] not in entity_types:
-                print(f"错误：'entity_type' '{entity['entity_type']}'不在有效的实体类型列表中。")
-                return False
-
-            # 检查"entity_text"的值是否在原文中连续出现
-            if entity["entity_text"] not in origin_text:
-                print(f"错误：'entity_text' '{entity['entity_text']}'不是原文中的连续文本。")
-                return False
-
-        # 如果所有检查都通过，打印成功消息并返回True
-        return True
-
-    except json.JSONDecodeError as e:
-        # 如果输出不是有效的JSON，打印错误并返回False
-        print(f"错误：输出不是有效的JSON。{e}")
-        return False
 
 
 if __name__ == '__main__':
 
-    model_id = "qwen/Qwen2-1.5B-Instruct"
-    model_dir = "./qwen/Qwen2-1___5B-Instruct"
+    model_id = "qwen/Qwen2.5-3B-Instruct"
+    model_dir = "./qwen/Qwen2___5-3B-Instruct"
 
     # 在modelscope上下载Qwen模型到本地目录下
     model_dir = snapshot_download(model_id, cache_dir="./", revision="master")
@@ -350,10 +376,12 @@ if __name__ == '__main__':
     # 得到训练集
     train_total_df = pd.read_json(train_jsonl_new_path, lines=True)
     train_nums = len(train_total_df)
-    # train_nums = 200
+    # train_nums = 1000
     train_df = train_total_df[0:train_nums]
     train_ds = Dataset.from_pandas(train_df)
-    train_dataset = train_ds.map(process_func, remove_columns=train_ds.column_names)
+    processfunc = ProcessFunc()
+    train_dataset = train_ds.map(processfunc.process_func, remove_columns=train_ds.column_names)
+    print(processfunc.max_length)
 
     config = LoraConfig(
         task_type=TaskType.CAUSAL_LM,
@@ -367,14 +395,14 @@ if __name__ == '__main__':
     model = get_peft_model(model, config)
 
     args = TrainingArguments(
-        output_dir="./output/Qwen2-NER",
+        output_dir="./output/Qwen2.5-NER",
         per_device_train_batch_size=4,
         per_device_eval_batch_size=4,
         gradient_accumulation_steps=4,
         logging_steps=10,
         num_train_epochs=2,
         save_steps=100,
-        learning_rate=1e-4,
+        learning_rate=1e-5,
         save_on_each_node=True,
         gradient_checkpointing=True,
         report_to="none",
@@ -382,8 +410,8 @@ if __name__ == '__main__':
 
     swanlab_callback = SwanLabCallback(
         project="Qwen2-NER-fintune",
-        experiment_name="Qwen2-1.5B-Instruct-Clue2020",
-        description="使用通义千问Qwen2-1.5B-Instruct模型在NER数据集clue2020上微调，实现关键实体识别,并返回f1值。",
+        experiment_name="Qwen2.5-3B-Instruct-Clue2020",
+        description="使用通义千问Qwen2.5-3B-Instruct模型在NER数据集clue2020上微调，实现关键实体识别,并返回f1值。",
         config={
             "model": model_id,
             "model_dir": model_dir,
@@ -432,9 +460,13 @@ if __name__ == '__main__':
             {"role": "system", "content": f"{instruction}"},
             {"role": "user", "content": f"{input_value}"}
         ]
+
         while True:
             response = predict(messages, model, tokenizer)
-            if llm_output_check(response, input_value):break
+            check = Check()
+            if check.llm_output_check(response, input_value):
+                break
+
 
         # 计算预测bio
         pre_bio = output_data_bio(response,input_value)
@@ -452,6 +484,7 @@ if __name__ == '__main__':
 
     # 计算匹配f1
     f1 = f1_score(pre_bios, ture_bios)
+    print(f1)
     f1_swanlab_text =[swanlab.Text(str(f1[0]),caption='f1_10'),swanlab.Text(str(f1[1]),caption='f1_all')]
     swanlab.log({"Prediction": test_text_list})
     swanlab.log({"匹配F1": f1_swanlab_text})
@@ -461,6 +494,7 @@ if __name__ == '__main__':
     ture_labels = list(ture_data['labels'])
     ture_labels = ture_labels[0:test_nums]
     ture_f1 = f1_score(ture_labels, pre_bios)
+    print(ture_f1)
     ture_f1_swanlab_text =[swanlab.Text(str(ture_f1[0]),caption='ture_f1_10'),swanlab.Text(str(ture_f1[1]),caption='ture_f1_all')]
     swanlab.log({"真实F1": ture_f1_swanlab_text})
     swanlab.finish()
