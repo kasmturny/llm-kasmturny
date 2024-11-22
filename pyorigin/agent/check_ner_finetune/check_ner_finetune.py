@@ -350,7 +350,7 @@ if __name__ == '__main__':
     # 得到训练集
     train_total_df = pd.read_json(train_jsonl_new_path, lines=True)
     train_nums = len(train_total_df)
-    # train_nums = 1000
+    # train_nums = 200
     train_df = train_total_df[0:train_nums]
     train_ds = Dataset.from_pandas(train_df)
     train_dataset = train_ds.map(process_func, remove_columns=train_ds.column_names)
@@ -409,7 +409,7 @@ if __name__ == '__main__':
 
     test_total_df = pd.read_json(test_jsonl_new_path, lines=True)
     test_nums = len(test_total_df)       # 指定测试数量
-    # test_nums = 100
+    # test_nums = 20
     test_df = test_total_df[0:test_nums]
 
     # model = AutoModelForCausalLM.from_pretrained('./output/Qwen2-NER/checkpoint-1342', device_map="auto",torch_dtype=torch.bfloat16)
