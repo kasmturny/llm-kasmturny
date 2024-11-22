@@ -383,7 +383,7 @@ if __name__ == '__main__':
     swanlab_callback = SwanLabCallback(
         project="Qwen2-NER-fintune",
         experiment_name="Qwen2-1.5B-Instruct-Clue2020",
-        description="使用通义千问Qwen2-1.5B-Instruct模型在NER数据集clue2020上微调，实现关键实体识别，实体索引,并返回f1值。",
+        description="使用通义千问Qwen2-1.5B-Instruct模型在NER数据集clue2020上微调，实现关键实体识别,并返回f1值。",
         config={
             "model": model_id,
             "model_dir": model_dir,
