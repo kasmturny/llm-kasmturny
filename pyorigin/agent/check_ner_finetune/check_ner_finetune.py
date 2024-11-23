@@ -38,7 +38,7 @@ def dataset_jsonl_transfer(origin_path, new_path):
                 instruction = """Role:你是一个命名实体识别的专家，你十分擅长对自然语言的地址（address）、书籍（book）、公司（company）、游戏（game）、政府（government）、电影（movie）、名称（name）、组织（organization）、职位（position）、场景（scene）这十个实体进行识别。
                 Workflow:第一步，对输入原文进行仔细分析，分别找出上述十类命名实体，如果没有，就跳过。第二步，找到实体之后，在输入原文中找到实体所代表的连续的字符文本。第三步，将找到的实体文本和实体类型组成一个字典，将所有实体组成的字典列表作为输出。
                 Example:input:"浙商银行企业信贷部叶老桂博士则从另一个角度对五道门槛进行了解读。叶老桂认为，对目前国内商业银行而言，"，output:"{"entities":[{"entity_text": "叶老桂","entity_type": "name"},{"entity_text": "浙商银行","entity_type": "company"}]}"。 
-                Constraints:1、注意输出一定要是json格式的字符串. 2、entity_text的值必须是原文中的连续的文本，不能随意截取拼接原文中的文本,也不要进行原文文本的补全和标点符号的补全,例如原文只有"小丑》"你不能补全为"《小丑》". 3、entity_type的值必须是这十个实体类型中的一个，不能随意添加其他实体类型."""
+                Constraints:1、注意输出一定要是json格式的字符串. 2、entity_text的值必须是原文中的连续的文本，不能随意截取拼接原文中的文本,也不要进行原文文本的补全和标点符号的补全,例如原文只有"最终幻想》"你不能补全为"《最终幻想》". 3、entity_type的值必须是这十个实体类型中的一个，不能随意添加其他实体类型."""
                 message = {
                     "instruction": instruction,
                     "input": input_text,
@@ -68,7 +68,7 @@ class ProcessFunc():
         system_prompt = """Role:你是一个命名实体识别的专家，你十分擅长对自然语言的地址（address）、书籍（book）、公司（company）、游戏（game）、政府（government）、电影（movie）、名称（name）、组织（organization）、职位（position）、场景（scene）这十个实体进行识别。
         Workflow:第一步，对输入原文进行仔细分析，分别找出上述十类命名实体，如果没有，就跳过。第二步，找到实体之后，在输入原文中找到实体所代表的连续的字符文本。第三步，将找到的实体文本和实体类型组成一个字典，将所有实体组成的字典列表作为输出。
         Example:input:"浙商银行企业信贷部叶老桂博士则从另一个角度对五道门槛进行了解读。叶老桂认为，对目前国内商业银行而言，"，output:"{"entities":[{"entity_text": "叶老桂","entity_type": "name"},{"entity_text": "浙商银行","entity_type": "company"}]}"。 
-        Constraints:1、注意输出一定要是json格式的字符串. 2、entity_text的值必须是原文中的连续的文本，不能随意截取拼接原文中的文本,也不要进行原文文本的补全和标点符号的补全,例如原文只有"小丑》"你不能补全为"《小丑》". 3、entity_type的值必须是这十个实体类型中的一个，不能随意添加其他实体类型."""
+        Constraints:1、注意输出一定要是json格式的字符串. 2、entity_text的值必须是原文中的连续的文本，不能随意截取拼接原文中的文本,也不要进行原文文本的补全和标点符号的补全,例如原文只有"最终幻想》"你不能补全为"《最终幻想》". 3、entity_type的值必须是这十个实体类型中的一个，不能随意添加其他实体类型."""
         instruction = tokenizer(
             f"<|im_start|>system\n{system_prompt}<|im_end|>\n<|im_start|>user\n{example['input']}<|im_end|>\n<|im_start|>assistant\n",
             add_special_tokens=False,
