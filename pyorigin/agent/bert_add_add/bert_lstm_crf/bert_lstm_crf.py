@@ -19,7 +19,7 @@ from torchcrf import CRF
 
 from pyorigin.agent.bert_add_add.bert_lstm_crf.bert_lstm_crf_config import BertLstmCrfConfig
 config = BertLstmCrfConfig()
-from pyorigin.utils import logo_util
+from pyorigin.utils import log_util
 
 class NERDataset(Dataset):
     """NER数据集类"""

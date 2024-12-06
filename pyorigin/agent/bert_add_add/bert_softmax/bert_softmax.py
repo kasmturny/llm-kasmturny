@@ -27,7 +27,7 @@ from torch.nn.utils.rnn import pad_sequence
 from torchcrf import CRF
 from pyorigin.agent.bert_add_add.bert_softmax.bert_softmax_config import BertSoftmaxConfig
 config = BertSoftmaxConfig()
-from pyorigin.utils import logo_util
+from pyorigin.utils import log_util
 
 class NERDataset(Dataset):
     """NER数据集类"""

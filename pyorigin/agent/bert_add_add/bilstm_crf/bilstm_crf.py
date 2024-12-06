@@ -37,7 +37,7 @@ from sklearn.model_selection import train_test_split
 
 from pyorigin.agent.bert_add_add.bilstm_crf.bilstm_crf_config import BilstmCrfConfig
 config = BilstmCrfConfig()
-from pyorigin.utils import logo_util
+from pyorigin.utils import log_util
 
 class NERDataset(Dataset):
     """NER数据集类"""
