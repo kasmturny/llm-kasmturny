@@ -1,0 +1,123 @@
+.main-content1 {
+    margin-left: 100px;
+    margin-top: 0px;
+    margin-right: 0px;
+    padding: 40px;
+    padding-bottom: 0%;
+    background-color: transparent; 
+    
+    /* margin-left: 0px;
+    margin-top: 0px;
+    margin-right: 0px;
+    padding: 0px;
+    background-color: transparent;  */
+    
+                                                                                               }
+    .image-container {
+        width: 100%; /* 容器宽度占满父元素 */
+        height: 500px; /* 设置容器的高度，根据需要调整 */
+        overflow: hidden; /* 如果图片超出容器，则隐藏超出部分 */
+        position: relative; /* 相对定位，使得可以相对于图片定位文字 */
+                                                                                                   }
+        .image-container img {
+            width: 100%; /* 图片宽度占满容器 */
+            height: 100%; /* 图片高度占满容器 */
+            object-fit: cover; /* 确保图片覆盖整个容器，必要时进行裁剪 */
+        }
+    
+        .text-over-image {
+            position: absolute; /* 绝对定位，相对于.image-container定位 */
+            top: 20%; /* 定位到图片中心垂直位置 */
+            left: 20%; /* 定位到图片中心水平位置 */
+            transform: translate(-50%, -50%); /* 使用transform调整文字位置，使其居中 */
+            color: white; /* 文字颜色 */
+            text-align: center; /* 文字居中显示 */
+            background-color: rgba(0, 0, 0, 0.5); /* 半透明的背景色，以便文字可读 */
+            padding: 10px; /* 内边距，为文字提供空间 */
+            z-index: 10; /* 确保文字在图片上方 */
+        }
+        .jump-button {
+            position: absolute;
+            top: 40%; /* 根据需要调整垂直位置 */
+            left: 20%; /* 根据需要调整水平位置 */
+            transform: translate(-50%, -50%);
+            padding: 10px 20px;
+            background-color: rgba(0, 0, 0, 0.5); /* 半透明背景 */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            /* 额外的样式 */
+            }
+        .jump-button:hover {
+            background-color: rgba(0, 0, 0, 0.7); /* 鼠标悬停时的背景颜色 */
+        }
+        .jump-button1 {
+            position: absolute;
+            top: 50%; /* 根据需要调整垂直位置 */
+            left: 20%; /* 根据需要调整水平位置 */
+            transform: translate(-50%, -50%);
+            padding: 10px 20px;
+            background-color: rgba(0, 0, 0, 0.5); /* 半透明背景 */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            /* 额外的样式 */
+            }
+        .jump-button1:hover {
+            background-color: rgba(0, 0, 0, 0.7); /* 鼠标悬停时的背景颜色 */
+        }
+    
+    
+    .main-content2 {
+    margin-left: 100px;
+    margin-top: 0px;
+    margin-right: 0px;
+    padding: 40px;
+    background-color: transparent;
+    padding-top: 10px; 
+    padding-bottom: 10px;
+                                                                                               }
+    
+    .home-page{
+                                                                                               }
+                    .container-title{
+                        overflow-x: auto;
+                    }
+                        .container-title h2 {
+                            text-align: left;
+                            color: #ffffff;
+                        }
+    
+                        .carousel {
+                            overflow-x: auto;
+                            scrollbar-width: thin; /* 设置滚动条的宽度（thin, auto, or none） */
+                            scrollbar-color: #888 #000000; /* 设置滚动条滑块和轨道的颜色 */
+                          }
+    
+    
+                        .content-list {
+                            display: flex;
+                            list-style-type: none;
+                            padding: 0;
+                        }
+    
+                        .content-item {
+                            margin-right: 10px;
+                        }
+    
+                        .content-item img {
+                            width: 300px;
+                            height: auto;
+                        }
+    
+                        .content-item h3 {
+                            text-align: center;
+                            color: #ffffff;
+                        }
+    
+    
+    

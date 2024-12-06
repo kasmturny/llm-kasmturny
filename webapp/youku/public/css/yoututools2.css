@@ -1,0 +1,160 @@
+/* 全局样式 */
+
+  .change-style{
+    background-color: #ffffff;
+    color: #333;
+    position: absolute;
+    left: 47%;
+    top: 12%;
+    background-color: transparent;
+
+  }
+  
+  /* 主要内容工具样式 */
+  .main-content-tools {
+    position: relative; /* 设置为相对定位，为子元素提供定位上下文 */
+    margin-left: 0px;
+    margin-top: 0px;
+    margin-right: 0px;
+    padding: 0px;
+    height: 100%; /* 确保有足够的高度来显示背景图片 */
+    background-color: salmon; 
+    background-image: url('./bg.png'); /* 添加背景图片 */
+    background-repeat: no-repeat; /* 背景图片不重复 */
+    background-size: cover; /* 背景图片覆盖整个元素区域 */
+    background-position: center top; /* 背景图片从顶部居中显示 */
+    }
+  
+  /* 输入和按钮部分样式 */
+  .yoututools-mainbox {
+    background-color: #0c4c8a;
+    border: 3px solid #00529f;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 1000px;
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    width: 50%;
+    height: 70%; /* 确保这个高度足够大 */
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    /* background-color: #ffffff; */
+    overflow: hidden; /* 防止内容溢出 */
+  }
+
+  .main-box-head-ico{
+    width: 100%;
+    height: 81px;
+    margin-bottom: 10px;
+    background-image: url('./bg-1.png'); /* 添加背景图片 */
+    background-repeat: no-repeat; /* 背景图片不重复 */
+    background-size: cover; /* 背景图片覆盖整个元素区域 */
+    background-position: center top; /* 背景图片从顶部居中显示 */
+  }
+  
+  .yoututools-mainbox h2 {
+    color: #fff;
+    margin-bottom: 20px
+  }
+  
+  .input-and-button {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .input-and-button input[type="text"] {
+    padding: 10px;
+    margin-right: 10px;
+    border: 2px solid #00529f;
+    border-radius: 4px;
+    background-color: #fff;
+    width: 200px;
+  }
+  
+  .input-and-button button {
+    padding: 10px 20px;
+    background-color: #00529f;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .input-and-button button:hover {
+    background-color: #0066cc;
+  }
+  
+  /* 结果框样式 */
+  .result-box {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #d9eaff;
+    border: 2px solid #00529f;
+    border-radius: 4px;
+  }
+  
+  .result-box p {
+    color: #1a1a1a;
+    font-weight: bold;
+  }
+  
+  /* 时间监听部分样式 */
+  .time-monitor {
+    margin-top: 20px;
+    max-height: 70%;
+  }
+  
+  .time-display {
+    background-color: #0c4c8a;
+    color: #fff;
+    padding: 10px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .time-display p {
+    margin-right: 10px;
+    font-weight: bold;
+  }
+  
+  .tuzi-image img {
+    width: 100px;
+    height: auto;
+    margin-left: 10px;
+  }
+  
+  .recorded-times {
+    margin-top: 10px;
+  }
+  
+  .recorded-times p {
+    color: #ffffff;
+    font-weight: bold;
+  }
+  .recorded-times-list {
+    margin-top: 10px;
+    max-height: 600px;
+    overflow-y: auto;
+  }
+  
+  .recorded-times-list ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .recorded-times-list li {
+    background-color: #d9eaff;
+    margin-top: 5px;
+    padding: 5px;
+    border-radius: 4px;
+    color: #1a1a1a;
+    font-weight: bold;
+  }
+  

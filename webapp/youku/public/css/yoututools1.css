@@ -1,0 +1,143 @@
+  /* 主要内容工具样式 */
+  .main-content-tools {
+    position: relative; /* 设置为相对定位，为子元素提供定位上下文 */
+    margin-left: 0px;
+    margin-top: 0px;
+    margin-right: 0px;
+    padding: 0px;
+    height: 100%; /* 确保有足够的高度来显示背景图片 */
+    background-color: salmon; 
+    background-image: url('./wg.png'); /* 添加背景图片 */
+    background-repeat: no-repeat; /* 背景图片不重复 */
+    background-size: cover; /* 背景图片覆盖整个元素区域 */
+    background-position: center top; /* 背景图片从顶部居中显示 */
+                                                                                                     }
+    
+    .yoututools-mainbox {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    width: 50%;
+    height: 60%; /* 确保这个高度足够大 */
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: #ffffff;
+    overflow: hidden; /* 防止内容溢出 */
+                                                                                                 }
+    
+    
+    .input-and-button {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        max-height: 20%;
+    }
+    
+    .input-and-button input {
+        flex-grow: 1;
+        padding: 12px 20px;
+        margin-right: 10px;
+        border: 1px solid #dcdcdc;
+        background-color: #bababa;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+    
+    .input-and-button button {
+        padding: 12px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    
+    .input-and-button button:hover {
+        background-color: #0056b3;
+    }
+    
+    .result-box {
+        text-align: center;
+        padding: 10px;
+        background-color: #bababa;
+        border: 1px solid #e9ecef;
+        border-radius: 4px;
+        margin-bottom: 20px;
+    }
+    
+    .result-box p {
+        color: #000000;
+        font-size: 18px;
+    }
+    
+    .time-monitor {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        max-height: 70%; /* 限制最大高度为父元素的高度 */
+        overflow: y; /* 如果内容超出，添加滚动条 */
+    }
+    
+    
+    .time-display {
+        flex-basis: 50%;
+        text-align: center;
+        background-color: #bababa;
+        width: 100%;
+    }
+    
+    .time-display p {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+    
+    .tuzi-image img {
+        width: 100px;
+        height: auto;
+        border-radius: 50%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    .recorded-times {
+        margin: 20px;
+        flex-basis: 50%;
+        text-align: center;
+        background-color: #bababa;
+        width: 100%;
+        overflow-y: auto;
+    }
+    
+    .recorded-times p {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+    
+    .recorded-times-list ul {
+        list-style: none;
+        padding: 0;
+    }
+    
+    .recorded-times-list li {
+        background-color: #e9ecef;
+        padding: 5px 10px;
+        margin-bottom: 5px;
+        border-radius: 4px;
+        display: inline-block;
+        margin-right: 5px;
+    }
+
+    .change-style{
+        background-color: #ffffff;
+        color: #333;
+        position: absolute;
+        left: 47%;
+        top: 12%;
+        background-color: transparent;
+    
+      }
