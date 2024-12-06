@@ -575,7 +575,7 @@ class BilstmCrf:
     def k_fold_run(self,):
         """train with k-fold"""
         # set the logger
-        logo_util.set_logger(config.log_dir)
+        log_util.set_logger(config.log_dir)
         # 设置gpu为命令行参数指定的id
         if config.gpu != '':
             device = torch.device(f"cuda:{config.gpu}")
@@ -611,7 +611,7 @@ class BilstmCrf:
     def simple_run(self,):
         """train without k-fold"""
         # set the logger
-        logo_util.set_logger(config.log_dir)
+        log_util.set_logger(config.log_dir)
         # 设置gpu为命令行参数指定的id
         if config.gpu != '':
             device = torch.device(f"cuda:{config.gpu}")
