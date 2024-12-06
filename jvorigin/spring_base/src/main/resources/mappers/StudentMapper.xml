@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="org.example.dao.StudentDao">
+    <!-- 映射定义和SQL语句 -->
+    <select id="selectAll" resultType="org.example.entity.Student">
+        select * from students;
+    </select>
+
+    <insert id="insert" parameterType="org.example.entity.Student">
+        insert into students(name,age,id) values (#{name},#{age},#{id})
+    </insert>
+
+    <delete id="delete" parameterType="int">
+        delete from students where id=#{id}
+    </delete>
+
+    <select id="findById" parameterType="int" resultType="org.example.entity.Student">
+        select * from students where id=#{id};
+    </select>
+
+</mapper>
