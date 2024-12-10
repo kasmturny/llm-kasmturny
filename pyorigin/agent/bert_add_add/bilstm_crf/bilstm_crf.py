@@ -107,6 +107,7 @@ class BiLSTM_CRF(nn.Module):
             # batch是批次，seq_len是序列长度，input_size就是输入维度
             num_layers=2,
             dropout=drop_out,
+            # 指定在除最后一个LSTM层外的层之间应用Dropout的比例。Dropout是一种正则化技术，可以防止模型过拟合。drop_out是一个介于0和1之间的浮点数，表示要丢弃的输入单元的比例。
             bidirectional=True  # use bilstm
         )
         self.classifier = nn.Linear(hidden_size * 2, target_size)
