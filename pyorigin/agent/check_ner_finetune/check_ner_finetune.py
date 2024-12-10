@@ -74,22 +74,26 @@ class ProcessFunc():
             add_special_tokens=False,
         )
         response = tokenizer(f"{example['output']}", add_special_tokens=False)
+        #  把上述三个字典的值，按照模板组合，然后分词，然后拼接得到input_ids,attention_mask,labels
         input_ids = instruction["input_ids"] + response["input_ids"] + [tokenizer.pad_token_id]
-        attention_mask = (
-                instruction["attention_mask"] + response["attention_mask"] + [1]
-        )
+        attention_mask = (instruction["attention_mask"] + response["attention_mask"] + [1])
         labels = [-100] * len(instruction["input_ids"]) + response["input_ids"] + [tokenizer.pad_token_id]
-
+        """
+        input_ids：这是一个整数列表，表示输入文本的token序列。每个整数对应于词汇表中的一个token。在给模型输入文本时，文本会被分割成单词或子词（取决于所使用的tokenizer），然后每个单词或子词被转换为一个整数ID。这个列表就是模型实际处理的输入。
+        attention_mask：这是一个与input_ids相同长度的整数列表，用于指示哪些token是真实的输入，哪些是填充的。在实际的文本序列中，为了满足模型对输入长度的要求，可能会在序列的末尾添加一些特殊的填充token（如[PAD]）。attention_mask中的1表示对应的token是真实的输入，0表示是填充的token。这有助于模型在处理输入时忽略填充的token。
+        labels：这是一个整数列表，用于训练时的标签。在这个具体的例子中，labels列表的前部分被填充为-100，这表示这些位置的token不参与损失计算。后面的部分是响应的token ID，用于指导模型在生成文本时应该输出什么。在序列生成任务中，通常使用teacher forcing技术，即在每个时间步都使用真实的token作为输入来训练模型。
+        """
         if len(input_ids) > self.max_length:
             self.max_length = len(input_ids)
 
-        if len(input_ids) > MAX_LENGTH:  # 做一个截断
+        if len(input_ids) > MAX_LENGTH:  # 做一个截断,是训练资源和性能的权衡，尽量不要截断，暂时还有资源
             input_ids = input_ids[:MAX_LENGTH]
             attention_mask = attention_mask[:MAX_LENGTH]
             labels = labels[:MAX_LENGTH]
         return {"input_ids": input_ids, "attention_mask": attention_mask, "labels": labels}
 
 def predict(messages, model, tokenizer):
+    # 这一部分就是很简单的网上的推理部分
     device = "cuda"
     text = tokenizer.apply_chat_template(
         messages,
