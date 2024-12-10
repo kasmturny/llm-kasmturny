@@ -103,9 +103,11 @@ class BiLSTM_CRF(nn.Module):
             input_size=embedding_size,
             hidden_size=hidden_size,
             batch_first=True,
+            # 则输入数据的形状应该是(batch, seq_len, input_size)。如果设置为False（默认值），则输入数据的形状应该是(seq_len, batch, input_size)。
+            # batch是批次，seq_len是序列长度，input_size就是输入维度
             num_layers=2,
             dropout=drop_out,
-            bidirectional=True
+            bidirectional=True  # use bilstm
         )
         self.classifier = nn.Linear(hidden_size * 2, target_size)
         # https://pytorch-crf.readthedocs.io/en/stable/_modules/torchcrf.html
